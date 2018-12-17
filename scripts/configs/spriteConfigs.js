@@ -568,7 +568,7 @@ spriteImage.onload = function() {
             imageSource: spriteImage,
             indexX: 1,
             indexY: 2,
-            maxIndexX: 3,
+            maxIndexX: 2,
             singleWidth: 64,
             singleHeight: 64,
             spritePosX: function() {

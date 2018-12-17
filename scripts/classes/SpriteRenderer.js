@@ -1,50 +1,45 @@
 import {canvasContext} from '../helpers/canvasInitialization.js';
 
 export default function SpriteRenderer(options) {
-    this.thisOptions = options;
-    var that = this;
-
-    this.thisOptions.render = function() {
+    var that = Object.assign(this, options);
+    that.render = function() {
         canvasContext.drawImage(
-            that.thisOptions.imageSource,
-            that.thisOptions.spritePosX(),
-            that.thisOptions.spritePosY(),
-            that.thisOptions.singleWidth,
-            that.thisOptions.singleHeight,
-            that.thisOptions.drawPosX(),
-            that.thisOptions.drawPosY(),
-            that.thisOptions.drawWidth,
-            that.thisOptions.drawHeight
+            that.imageSource,
+            that.spritePosX(),
+            that.spritePosY(),
+            that.singleWidth,
+            that.singleHeight,
+            that.drawPosX(),
+            that.drawPosY(),
+            that.drawWidth,
+            that.drawHeight
         );  
     };
-    if(this.thisOptions.isAnimation) {
-        this.thisOptions.render = function() {
+    if(that.isAnimation) {
+        that.render = function() {
             canvasContext.drawImage(
-                that.thisOptions.imageSource,
-                that.thisOptions.singleWidth*that.thisOptions.frameIndex + that.thisOptions.spritePosX(),
-                that.thisOptions.spritePosY(),
-                that.thisOptions.singleWidth,
-                that.thisOptions.singleHeight,
-                that.thisOptions.drawPosX(),
-                that.thisOptions.drawPosY(),
-                that.thisOptions.drawWidth,
-                that.thisOptions.drawHeight
+                that.imageSource,
+                that.singleWidth*that.frameIndex + that.spritePosX(),
+                that.spritePosY(),
+                that.singleWidth,
+                that.singleHeight,
+                that.drawPosX(),
+                that.drawPosY(),
+                that.drawWidth,
+                that.drawHeight
             );
         };
-        this.thisOptions.update = function() {
+        that.update = function() {
             // console.log('updated');
-            that.thisOptions.tickCount++;
-            if(that.thisOptions.tickCount >= that.thisOptions.ticksPerFrame) {
-                that.thisOptions.tickCount = 0;
-                that.thisOptions.frameIndex++;
-                if(that.thisOptions.frameIndex >= that.thisOptions.numberOfFrames-1) {
-                    that.thisOptions.frameIndex = 0;
+            that.tickCount++;
+            if(that.tickCount >= that.ticksPerFrame) {
+                that.tickCount = 0;
+                that.frameIndex++;
+                if(that.frameIndex >= that.numberOfFrames-1) {
+                    that.frameIndex = 0;
                 } 
             }
         };
     }
-
-    this.getOptionsObject = function() {
-        return this.thisOptions;
-    };
+    return that;
 }
