@@ -23,18 +23,21 @@ export default function Game() {
             currentSpriteConfig.xInc = x;
             currentSpriteConfig.yInc = y;
             currentSpriteConfig.spriteNumber = this.currentMap[i];
+            currentSpriteConfig.offsetX = 0;
+            currentSpriteConfig.offsetY = 0;
             
             currentSpriteConfig.drawPosX = function () {
-                return this.drawWidth * this.xInc;
+                return this.drawWidth * this.xInc + this.offsetX;
             };
             currentSpriteConfig.drawPosY = function () {
-                return this.drawHeight * this.yInc;
+                return this.drawHeight * this.yInc + this.offsetY;
             };
+            
 
             currentSpriteConfig.frameIndex = 0;
             currentSpriteConfig.tickCount = 0;
             currentSpriteConfig.ticksPerFrame = 10;
-            currentSpriteConfig.numberOfFrames = currentSpriteConfig.maxIndexX + 1;
+            currentSpriteConfig.numberOfFrames = currentSpriteConfig.maxIndexX - currentSpriteConfig.indexX + 1;
             
             //get the renderer object
             var spriteRenderer = new SpriteRenderer(currentSpriteConfig);
@@ -46,7 +49,7 @@ export default function Game() {
                 y++;
             }
         }
-        // console.log(this.currentMapObjArray);
+        console.log(this.currentMapObjArray);
     };    
 
     this.initGame = function () {
@@ -55,13 +58,13 @@ export default function Game() {
         this.mainGameLoop();
     };
     this.mainGameLoop = function() {
+        canvasContext.clearRect(0, 0, 640, 320);
         that.update();
         that.draw();
         requestAnimationFrame(that.mainGameLoop);
     };
     this.update = function() {
         that.map.updateMap(that.currentMapObjArray);
-        that.daveCharacter.updateDaveCharacter();
     };
     this.draw = function() {
         that.map.drawMap(that.currentMapObjArray);
