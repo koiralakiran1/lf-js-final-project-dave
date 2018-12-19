@@ -35,7 +35,7 @@ export default function SpriteRenderer(options) {
             if(that.tickCount >= that.ticksPerFrame) {
                 that.tickCount = 0;
                 that.frameIndex++;
-                if(that.frameIndex >= that.numberOfFrames-1) {
+                if(that.frameIndex >= that.numberOfFrames()-1) {
                     that.frameIndex = 0;
                 } 
             }

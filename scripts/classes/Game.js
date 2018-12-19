@@ -6,11 +6,10 @@ import {canvasContext} from '../helpers/canvasInitialization.js';
 
 export default function Game() {
     var that = this;
-
     this.map = new Map();
-    this.daveCharacter = new DaveCharacter();
     this.currentMap = this.map.level1MapArray; //Array
     this.currentMapObjArray = [];
+    this.daveCharacter = new DaveCharacter(that.currentMap, that.currentMapObjArray);
     
     this.createMapObjArray = function () {
         for (var i = 0, x = 0, y = 0; i < this.currentMap.length; i++) {
@@ -26,6 +25,12 @@ export default function Game() {
             currentSpriteConfig.offsetX = 0;
             currentSpriteConfig.offsetY = 0;
             
+            currentSpriteConfig.initialDrawPosX = function() {
+                return this.drawWidth * this.xInc;
+            };
+            currentSpriteConfig.initialDrawPosY = function() {
+                return this.drawHeight * this.yInc;
+            }
             currentSpriteConfig.drawPosX = function () {
                 return this.drawWidth * this.xInc + this.offsetX;
             };
@@ -37,8 +42,9 @@ export default function Game() {
             currentSpriteConfig.frameIndex = 0;
             currentSpriteConfig.tickCount = 0;
             currentSpriteConfig.ticksPerFrame = 10;
-            currentSpriteConfig.numberOfFrames = currentSpriteConfig.maxIndexX - currentSpriteConfig.indexX + 1;
-            
+            currentSpriteConfig.numberOfFrames = function() {
+                return this.maxIndexX - this.indexX + 1;
+            };
             //get the renderer object
             var spriteRenderer = new SpriteRenderer(currentSpriteConfig);
             this.currentMapObjArray.push(spriteRenderer);
@@ -49,25 +55,30 @@ export default function Game() {
                 y++;
             }
         }
-        console.log(this.currentMapObjArray);
     };    
 
     this.initGame = function () {
+
         this.createMapObjArray();
-        this.daveCharacter.initDaveCharacter(that.currentMap, that.currentMapObjArray);
+        this.daveCharacter.initDaveCharacter();
         this.mainGameLoop();
     };
     this.mainGameLoop = function() {
         canvasContext.clearRect(0, 0, 640, 320);
+        that.detectCollision();
         that.update();
         that.draw();
         requestAnimationFrame(that.mainGameLoop);
     };
     this.update = function() {
         that.map.updateMap(that.currentMapObjArray);
+        that.daveCharacter.update();
     };
     this.draw = function() {
         that.map.drawMap(that.currentMapObjArray);
         that.daveCharacter.drawDaveCharacter();
+    };
+    this.detectCollision = function () {
+        that.daveCharacter.detectDaveCollision();
     };
 }
