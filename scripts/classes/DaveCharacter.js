@@ -9,7 +9,10 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
     this.currentMapObjArray = currentMapObjArray;
     this.keys = [false, false, false, false];
     this.collisionArr = [];
-    this.upHandled = false;
+
+    this.goingTop = false;
+    this.goingBottom = false;
+    this.offsetYInc = 0;
 
 
     this.initDaveCharacter = function() {
@@ -25,6 +28,9 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         }
         that.daveDrawObject.spriteNumber = 41;
         that.daveDrawObject.ticksPerFrame = 5;
+        // that.daveDrawObject.offsetY = -192;
+        // that.daveDrawObject.offsetX = +32;
+
         that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
     };
 
@@ -95,8 +101,6 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         that.updateTop();
         that.updateBottom();
     };
-
-
     this.updateLeft = function() {
         if(that.keys[0]) {
             that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[43]);
@@ -122,8 +126,55 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             // console.log(that.daveDrawObject.frameIndex, that.daveDrawObject.numberOfFrames());
         }
     };
+
+
     this.updateTop = function() {
         if(that.keys[1]) {
+            //change sprites
+            if(that.daveDrawObject.spriteNumber == 43) { //left
+                // console.log('up left');
+                that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[45]);
+                that.daveDrawObject.frameIndex = 0;
+                // console.log(that.daveDrawObject);
+                that.daveDrawObject.spriteNumber = 45;
+                that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+
+            } else if(that.daveDrawObject.spriteNumber == 42 || that.daveDrawObject.spriteNumber == 41) { //right
+                // console.log('up right');
+                that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[44]);
+                that.daveDrawObject.frameIndex = 0;
+                // console.log(that.daveDrawObject);
+                that.daveDrawObject.spriteNumber = 44;
+                that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+            }
+            // if(!that.collisionArr.includes('TOP_PROB_COLLISION')) {
+            //     that.goingTop = true;
+            //     that.daveDrawObject.offsetY -= 4;
+            //     if(Math.abs(that.daveDrawObject.offsetY) %32 ==0 ) {
+            //         that.keys[1] = false;
+            //         // that.goingTop = false;
+            //     }
+            // } else {
+            //     that.goingTop = false;
+            // }
+
+            if(!that.collisionArr.includes('TOP_PROB_COLLISION')) {
+                that.goingTop = true;
+                that.daveDrawObject.offsetY -= 2;
+                that.offsetYInc += 2;
+                if(that.offsetYInc % 70 == 0) {
+                    that.keys[1] =false;
+                    that.goingTop = false;
+                }
+            } else {
+                that.goingTop = false;
+            }
+        }
+    };
+    this.updateBottom = function() {
+        //change sprite
+        if(!that.collisionArr.includes('BOTTOM_PROB_COLLISION') && !that.goingTop) {
+            that.goingBottom = true;
             if(that.daveDrawObject.spriteNumber == 43) { //left
                 // console.log('up left');
                 that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[45]);
@@ -141,22 +192,28 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
 
             }
-            if(!that.collisionArr.includes('TOP_PROB_COLLISION')) {
-                if(that.daveDrawObject.offsetY >= 64) {
-                    that.updateBottom();
-                } else {
-                    that.daveDrawObject.offsetY -=2;
-                    that.upHandled = false;
-                }
-            }
-        }
-    };
-    this.updateBottom = function() {
-        if(!that.collisionArr.includes('BOTTOM_PROB_COLLISION')) {
+            // console.log('going bot');
             that.daveDrawObject.offsetY += 2;
-            that.upHandled = true;
+        }
+        if(that.collisionArr.includes('BOTTOM_PROB_COLLISION')) {
+            that.goingBottom = false;
+            that.goingTop = false;
+            // that.keys[1] = false;
+            that.offsetYInc = 0;
         }
     };
+
+
+
+
+
+
+
+
+
+
+
+
     window.addEventListener("keydown", function(event) {
         if(event.keyCode == 37) { //Left
             that.keys[0] = true;
@@ -164,7 +221,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         if(event.keyCode == 39) { //Right
             that.keys[2] = true;
         }
-        if(event.keyCode == 38) { //top
+        if(event.keyCode == 38 && !that.goingBottom && !that.goingTop) { //top
             that.keys[1] = true;
         }
     }, false);
