@@ -2,6 +2,7 @@ import {spriteConfigs} from '../configs/spriteConfigs.js';
 import SpriteRenderer from './SpriteRenderer.js';
 import {convertPositionToIndex} from '../helpers/utils.js';
 import {removeValueFromArray} from '../helpers/utils.js';
+import {newGame} from '../script.js';
 
 export default function DaveCharacter(currentMap, currentMapObjArray) {
     var that = this;
@@ -14,6 +15,17 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
     this.goingBottom = false;
     this.offsetYInc = 0;
     this.rightKeyPressedLast = false;
+    this.consumed = {
+        skyBlueDiamondGem: 0,
+        redDiamondGem: 0,
+        pinkSphere: 0,
+        gun: false,
+        redYellowRing: 0,
+        greenGreyWand: 0,
+        redYellowCrown: 0,
+        lampKey: false,
+        jetPack: false
+    };
 
 
     this.initDaveCharacter = function() {
@@ -38,6 +50,17 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
     this.drawDaveCharacter = function() {
         that.daveDrawObject.render();
     };
+    this.checkConsumableCollision = function(someIndex) {
+        switch(that.currentMapObjArray[someIndex].spriteNumber) {
+            case 11: case 12: case 13: case 14: case 15: case 16: case 17:
+            case 18: case 19: case 20: {
+                newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
+                newGame.currentMapObjArray[someIndex].spriteNumber = 0;
+                newGame.currentMapObjArray[someIndex].frameIndex = 0;
+                break;
+            }
+        }
+    };
     this.detectDaveCollision = function() {
 
         var daveIndex = convertPositionToIndex(that.daveDrawObject.drawPosX(), that.daveDrawObject.drawPosY());
@@ -53,47 +76,75 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         // check left
         if(that.currentMapObjArray[daveIndexAfterW-1].spriteNumber != 0 ||
             that.currentMapObjArray[daveIndexAfterWH-1].spriteNumber != 0) { //left
-            // if(that.daveDrawObject.drawPosX() <= that.currentMapObjArray[daveIndex-1].drawPosX() + that.currentMapObjArray[daveIndex-1].drawWidth) {
 
-            // }
-            if(!that.collisionArr.includes('LEFT_PROB_COLLISION')) {
-                that.collisionArr.push('LEFT_PROB_COLLISION');
+            if(that.currentMapObjArray[daveIndexAfterW-1].spriteNumber != 0) {
+                that.checkConsumableCollision(daveIndexAfterW-1);
+                // console.log('consume');
             }
-        } else if(that.collisionArr.includes('LEFT_PROB_COLLISION')) {
-            that.collisionArr = removeValueFromArray(that.collisionArr, 'LEFT_PROB_COLLISION');
+            if(that.currentMapObjArray[daveIndexAfterWH-1].spriteNumber != 0) {
+                that.checkConsumableCollision(daveIndexAfterWH-1);
+            }
+            if(!that.collisionArr.includes('LEFT_BLOCK_COLLISION')) {
+                that.collisionArr.push('LEFT_BLOCK_COLLISION');
+            }
+        } else if(that.collisionArr.includes('LEFT_BLOCK_COLLISION')) {
+            that.collisionArr = removeValueFromArray(that.collisionArr, 'LEFT_BLOCK_COLLISION');
         }
 
         // check right
         if(that.currentMapObjArray[daveIndex+1].spriteNumber != 0 ||
             that.currentMapObjArray[daveIndexAfterH+1].spriteNumber != 0) {//right
-            // if(that.daveDrawObject.drawPosX() + that.daveDrawObject.drawWidth >= that.currentMapObjArray[daveIndex+1].drawPosX() + 2) {
 
-            // }
-            if(!that.collisionArr.includes('RIGHT_PROB_COLLISION')) {
-                that.collisionArr.push('RIGHT_PROB_COLLISION');
+            if(that.currentMapObjArray[daveIndex+1].spriteNumber != 0) {
+                that.checkConsumableCollision(daveIndex+1);
+                // console.log('consume');
             }
-        } else if(that.collisionArr.includes('RIGHT_PROB_COLLISION')) {
-            that.collisionArr = removeValueFromArray(that.collisionArr, 'RIGHT_PROB_COLLISION');
+            if(that.currentMapObjArray[daveIndexAfterH+1].spriteNumber != 0) {
+                that.checkConsumableCollision(daveIndexAfterH+1);
+            }
+
+            if(!that.collisionArr.includes('RIGHT_BLOCK_COLLISION')) {
+                that.collisionArr.push('RIGHT_BLOCK_COLLISION');
+            }
+        } else if(that.collisionArr.includes('RIGHT_BLOCK_COLLISION')) {
+            that.collisionArr = removeValueFromArray(that.collisionArr, 'RIGHT_BLOCK_COLLISION');
         }
 
         // check top
         if(that.currentMapObjArray[daveIndexAfterH-20].spriteNumber != 0 ||
             that.currentMapObjArray[daveIndexAfterWH-20].spriteNumber != 0) {
-            if(!that.collisionArr.includes('TOP_PROB_COLLISION')) {
-                that.collisionArr.push('TOP_PROB_COLLISION');
+
+            if(that.currentMapObjArray[daveIndexAfterH-20].spriteNumber != 0) {
+                that.checkConsumableCollision(daveIndexAfterH-20);
+                // console.log('consume');
             }
-        } else if(that.collisionArr.includes('TOP_PROB_COLLISION')) {
-            that.collisionArr = removeValueFromArray(that.collisionArr, 'TOP_PROB_COLLISION');
+            if(that.currentMapObjArray[daveIndexAfterWH-20].spriteNumber != 0) {
+                that.checkConsumableCollision(daveIndexAfterWH-20);
+            }
+
+            if(!that.collisionArr.includes('TOP_BLOCK_COLLISION')) {
+                that.collisionArr.push('TOP_BLOCK_COLLISION');
+            }
+        } else if(that.collisionArr.includes('TOP_BLOCK_COLLISION')) {
+            that.collisionArr = removeValueFromArray(that.collisionArr, 'TOP_BLOCK_COLLISION');
         }
 
         //check bottom
         if(that.currentMapObjArray[daveIndex+20].spriteNumber != 0 ||
             that.currentMapObjArray[daveIndexAfterW+20].spriteNumber != 0) {
-            if(!that.collisionArr.includes('BOTTOM_PROB_COLLISION')) {
-                that.collisionArr.push('BOTTOM_PROB_COLLISION');
+
+            if(that.currentMapObjArray[daveIndex+20].spriteNumber != 0) {
+                that.checkConsumableCollision(daveIndex+20);
+                // console.log('consume');
             }
-        } else if(that.collisionArr.includes('BOTTOM_PROB_COLLISION')) {
-            that.collisionArr = removeValueFromArray(that.collisionArr, 'BOTTOM_PROB_COLLISION');
+            if(that.currentMapObjArray[daveIndexAfterW+20].spriteNumber != 0) {
+                that.checkConsumableCollision(daveIndexAfterW+20);
+            }
+            if(!that.collisionArr.includes('BOTTOM_BLOCK_COLLISION')) {
+                that.collisionArr.push('BOTTOM_BLOCK_COLLISION');
+            }
+        } else if(that.collisionArr.includes('BOTTOM_BLOCK_COLLISION')) {
+            that.collisionArr = removeValueFromArray(that.collisionArr, 'BOTTOM_BLOCK_COLLISION');
         }
     };
     this.update = function() {
@@ -109,7 +160,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             that.daveDrawObject.spriteNumber = 43;
             that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
             that.daveDrawObject.update();
-            if(!that.collisionArr.includes('LEFT_PROB_COLLISION')) {
+            if(!that.collisionArr.includes('LEFT_BLOCK_COLLISION')) {
                 that.daveDrawObject.offsetX -= 2;
             }
             // console.log(that.daveDrawObject);
@@ -122,15 +173,13 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             that.daveDrawObject.spriteNumber = 42;
             that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
             that.daveDrawObject.update();
-            if(!that.collisionArr.includes('RIGHT_PROB_COLLISION')) {
+            if(!that.collisionArr.includes('RIGHT_BLOCK_COLLISION')) {
 
                 that.daveDrawObject.offsetX += 2;
             }
             // console.log(that.daveDrawObject.frameIndex, that.daveDrawObject.numberOfFrames());
         }
     };
-
-
     this.updateTop = function() {
         if(that.keys[1]) {
             //change sprites
@@ -167,7 +216,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 }
             }
 
-            if(!that.collisionArr.includes('TOP_PROB_COLLISION')) {
+            if(!that.collisionArr.includes('TOP_BLOCK_COLLISION')) {
                 that.goingTop = true;
                 that.daveDrawObject.offsetY -= 2;
                 that.offsetYInc += 2;
@@ -183,7 +232,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
     };
     this.updateBottom = function() {
         //change sprite
-        if(!that.collisionArr.includes('BOTTOM_PROB_COLLISION') && !that.goingTop) {
+        if(!that.collisionArr.includes('BOTTOM_BLOCK_COLLISION') && !that.goingTop) {
             that.goingBottom = true;
             if(that.daveDrawObject.spriteNumber == 43) { //left
                 // console.log('up left');
@@ -205,7 +254,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             // console.log('going bot');
             that.daveDrawObject.offsetY += 2;
         }
-        if(that.collisionArr.includes('BOTTOM_PROB_COLLISION')) {
+        if(that.collisionArr.includes('BOTTOM_BLOCK_COLLISION')) {
             that.goingBottom = false;
             that.goingTop = false;
             that.offsetYInc = 0;
@@ -216,17 +265,6 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             }
         }
     };
-
-
-
-
-
-
-
-
-
-
-
 
     window.addEventListener("keydown", function(event) {
         if(event.keyCode == 37) { //Left

@@ -10,11 +10,12 @@ export default function Game() {
     this.currentMap = this.map.level1MapArray; //Array
     this.currentMapObjArray = [];
     this.daveCharacter = new DaveCharacter(that.currentMap, that.currentMapObjArray);
+    this.score = 0;
 
-    this.createMapObjArray = function () {
-        for (var i = 0, x = 0, y = 0; i < this.currentMap.length; i++) {
+    this.createMapObjArray = function (mapArray) {
+        for (var i = 0, x = 0, y = 0; i < mapArray.length; i++) {
             //get the associated sprite option
-            var currentSpriteConfig = Object.assign({}, spriteConfigs[this.currentMap[i]]);
+            var currentSpriteConfig = Object.assign({}, spriteConfigs[mapArray[i]]);
 
             //add canvas draw parameter
             currentSpriteConfig.drawWidth = 32;
@@ -59,7 +60,7 @@ export default function Game() {
 
     this.initGame = function () {
 
-        this.createMapObjArray();
+        this.createMapObjArray(that.currentMap);
         this.daveCharacter.initDaveCharacter();
         this.mainGameLoop();
     };
@@ -80,5 +81,8 @@ export default function Game() {
     };
     this.detectCollision = function () {
         that.daveCharacter.detectDaveCollision();
+    };
+    this.increaseScore = function() {
+
     };
 }
