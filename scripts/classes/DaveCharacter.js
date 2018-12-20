@@ -9,6 +9,8 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
     this.currentMapObjArray = currentMapObjArray;
     this.keys = [false, false, false, false];
     this.collisionArr = [];
+    this.upHandled = false;
+
 
     this.initDaveCharacter = function() {
         that.tunnelIndex = that.currentMap.findIndex(function(element) {
@@ -22,6 +24,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             that.daveDrawObject.yInc++;
         }
         that.daveDrawObject.spriteNumber = 41;
+        that.daveDrawObject.ticksPerFrame = 5;
         that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
     };
 
@@ -29,7 +32,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         that.daveDrawObject.render();
     };
     this.detectDaveCollision = function() {
-        //bottom left/right ma ni check collision
+
         var daveIndex = convertPositionToIndex(that.daveDrawObject.drawPosX(), that.daveDrawObject.drawPosY());
         var daveIndexAfterW = convertPositionToIndex(that.daveDrawObject.drawPosX()+that.daveDrawObject.drawWidth-1,
                                                         that.daveDrawObject.drawPosY());
@@ -70,7 +73,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         if(that.currentMapObjArray[daveIndexAfterH-20].spriteNumber != 0 ||
             that.currentMapObjArray[daveIndexAfterWH-20].spriteNumber != 0) {
             if(!that.collisionArr.includes('TOP_PROB_COLLISION')) {
-                that.collisionArr.push('TOP__PROB_COLLISION');
+                that.collisionArr.push('TOP_PROB_COLLISION');
             }
         } else if(that.collisionArr.includes('TOP_PROB_COLLISION')) {
             that.collisionArr = removeValueFromArray(that.collisionArr, 'TOP_PROB_COLLISION');
@@ -85,29 +88,25 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         } else if(that.collisionArr.includes('BOTTOM_PROB_COLLISION')) {
             that.collisionArr = removeValueFromArray(that.collisionArr, 'BOTTOM_PROB_COLLISION');
         }
-        console.log(that.collisionArr);
     };
     this.update = function() {
         that.updateLeft();
         that.updateRight();
         that.updateTop();
+        that.updateBottom();
     };
 
 
     this.updateLeft = function() {
         if(that.keys[0]) {
-
             that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[43]);
             that.daveDrawObject.spriteNumber = 43;
             that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
-
-            that.daveDrawObject.frameIndex++;
+            that.daveDrawObject.update();
             if(!that.collisionArr.includes('LEFT_PROB_COLLISION')) {
                 that.daveDrawObject.offsetX -= 2;
             }
-            if(that.daveDrawObject.frameIndex >= that.daveDrawObject.numberOfFrames()) {
-                that.daveDrawObject.frameIndex = 0;
-            }
+            // console.log(that.daveDrawObject);
         }
     };
     this.updateRight = function() {
@@ -115,58 +114,58 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[42]);
             that.daveDrawObject.spriteNumber = 42;
             that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
-
-            that.daveDrawObject.frameIndex++;
+            that.daveDrawObject.update();
             if(!that.collisionArr.includes('RIGHT_PROB_COLLISION')) {
+
                 that.daveDrawObject.offsetX += 2;
             }
-            if (that.daveDrawObject.frameIndex >= that.daveDrawObject.numberOfFrames()) {
-                that.daveDrawObject.frameIndex = 0;
-            }
+            // console.log(that.daveDrawObject.frameIndex, that.daveDrawObject.numberOfFrames());
         }
     };
     this.updateTop = function() {
         if(that.keys[1]) {
-            if (that.daveDrawObject.spriteNumber == 43) { //BACK
-                console.log('up left');
+            if(that.daveDrawObject.spriteNumber == 43) { //left
+                // console.log('up left');
                 that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[45]);
+                that.daveDrawObject.frameIndex = 0;
+                // console.log(that.daveDrawObject);
                 that.daveDrawObject.spriteNumber = 45;
-            } else if(that.daveDrawObject.spriteNumber == 42 || that.daveDrawObject.spriteNumber == 41) { //Right or no moved
-                console.log('up right');
+                that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+
+            } else if(that.daveDrawObject.spriteNumber == 42 || that.daveDrawObject.spriteNumber == 41) { //right
+                // console.log('up right');
                 that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[44]);
+                that.daveDrawObject.frameIndex = 0;
+                // console.log(that.daveDrawObject);
                 that.daveDrawObject.spriteNumber = 44;
+                that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+
             }
-            that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
-            // if(!that.collisionArr.includes('TOP_COLLISION')) {
-            //     that.daveDrawObject.offsetY -= 2;
-            // }
-            // if((that.daveDrawObject.offsetY * -1) % 64 == 0 && that.daveDrawObject.offsetY != 0) {
-            //     // console.log('over');
-            //     that.keys[1] = false;
-            //     // that.daveCharacter.daveDrawObject.offsetY = 0;
-            // }
+            if(!that.collisionArr.includes('TOP_PROB_COLLISION')) {
+                if(that.daveDrawObject.offsetY >= 64) {
+                    that.updateBottom();
+                } else {
+                    that.daveDrawObject.offsetY -=2;
+                    that.upHandled = false;
+                }
+            }
         }
     };
-
-
-
-
-
-
-    window.addEventListener("keypress", function(event) {
-        if(event.keyCode == 38) {
-            that.keys[1] = true;
+    this.updateBottom = function() {
+        if(!that.collisionArr.includes('BOTTOM_PROB_COLLISION')) {
+            that.daveDrawObject.offsetY += 2;
+            that.upHandled = true;
         }
-    });
-
+    };
     window.addEventListener("keydown", function(event) {
         if(event.keyCode == 37) { //Left
-            // that.updateLeft();
             that.keys[0] = true;
         }
         if(event.keyCode == 39) { //Right
-            // that.updateRight();
             that.keys[2] = true;
+        }
+        if(event.keyCode == 38) { //top
+            that.keys[1] = true;
         }
     }, false);
     window.addEventListener("keyup", function(event) {
@@ -177,4 +176,5 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             that.keys[2] = false;
         }
     }, false);
+
 }

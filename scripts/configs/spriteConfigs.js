@@ -623,6 +623,6 @@ spriteImage.onload = function() {
                 return (this.indexY * this.singleHeight);
             },
         },
-    };    
+    };
 };
 spriteImage.src = './assets/imageAssets/highres/pngs/all_in_one.png';

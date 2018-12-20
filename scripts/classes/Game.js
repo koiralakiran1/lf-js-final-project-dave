@@ -10,12 +10,12 @@ export default function Game() {
     this.currentMap = this.map.level1MapArray; //Array
     this.currentMapObjArray = [];
     this.daveCharacter = new DaveCharacter(that.currentMap, that.currentMapObjArray);
-    
+
     this.createMapObjArray = function () {
         for (var i = 0, x = 0, y = 0; i < this.currentMap.length; i++) {
             //get the associated sprite option
             var currentSpriteConfig = Object.assign({}, spriteConfigs[this.currentMap[i]]);
-            
+
             //add canvas draw parameter
             currentSpriteConfig.drawWidth = 32;
             currentSpriteConfig.drawHeight = 32;
@@ -24,7 +24,7 @@ export default function Game() {
             currentSpriteConfig.spriteNumber = this.currentMap[i];
             currentSpriteConfig.offsetX = 0;
             currentSpriteConfig.offsetY = 0;
-            
+
             currentSpriteConfig.initialDrawPosX = function() {
                 return this.drawWidth * this.xInc;
             };
@@ -37,7 +37,7 @@ export default function Game() {
             currentSpriteConfig.drawPosY = function () {
                 return this.drawHeight * this.yInc + this.offsetY;
             };
-            
+
 
             currentSpriteConfig.frameIndex = 0;
             currentSpriteConfig.tickCount = 0;
@@ -55,7 +55,7 @@ export default function Game() {
                 y++;
             }
         }
-    };    
+    };
 
     this.initGame = function () {
 

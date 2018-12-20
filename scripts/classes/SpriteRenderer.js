@@ -13,7 +13,7 @@ export default function SpriteRenderer(options) {
             that.drawPosY(),
             that.drawWidth,
             that.drawHeight
-        );  
+        );
     };
     if(that.isAnimation) {
         that.render = function() {
@@ -30,14 +30,13 @@ export default function SpriteRenderer(options) {
             );
         };
         that.update = function() {
-            // console.log('updated');
             that.tickCount++;
             if(that.tickCount >= that.ticksPerFrame) {
                 that.tickCount = 0;
                 that.frameIndex++;
-                if(that.frameIndex >= that.numberOfFrames()-1) {
+                if(that.frameIndex > that.numberOfFrames()-1) {
                     that.frameIndex = 0;
-                } 
+                }
             }
         };
     }
