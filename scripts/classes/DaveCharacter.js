@@ -13,6 +13,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
     this.goingTop = false;
     this.goingBottom = false;
     this.offsetYInc = 0;
+    this.rightKeyPressedLast = false;
 
 
     this.initDaveCharacter = function() {
@@ -98,11 +99,12 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
     this.update = function() {
         that.updateLeft();
         that.updateRight();
-        that.updateTop();
         that.updateBottom();
+        that.updateTop();
     };
     this.updateLeft = function() {
         if(that.keys[0]) {
+            that.rightKeyPressedLast = false;
             that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[43]);
             that.daveDrawObject.spriteNumber = 43;
             that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
@@ -115,6 +117,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
     };
     this.updateRight = function() {
         if(that.keys[2]) {
+            that.rightKeyPressedLast = true;
             that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[42]);
             that.daveDrawObject.spriteNumber = 42;
             that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
@@ -139,24 +142,30 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 that.daveDrawObject.spriteNumber = 45;
                 that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
 
-            } else if(that.daveDrawObject.spriteNumber == 42 || that.daveDrawObject.spriteNumber == 41) { //right
+            } else if(that.daveDrawObject.spriteNumber == 42) { //right
                 // console.log('up right');
                 that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[44]);
                 that.daveDrawObject.frameIndex = 0;
                 // console.log(that.daveDrawObject);
                 that.daveDrawObject.spriteNumber = 44;
                 that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+            } else if(that.daveDrawObject.spriteNumber == 41) {
+                if(that.rightKeyPressedLast) {
+                    // console.log('up right');
+                    that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[44]);
+                    that.daveDrawObject.frameIndex = 0;
+                    // console.log(that.daveDrawObject);
+                    that.daveDrawObject.spriteNumber = 44;
+                    that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+                } else {
+                    // console.log('up left');
+                    that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[45]);
+                    that.daveDrawObject.frameIndex = 0;
+                    // console.log(that.daveDrawObject);
+                    that.daveDrawObject.spriteNumber = 45;
+                    that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+                }
             }
-            // if(!that.collisionArr.includes('TOP_PROB_COLLISION')) {
-            //     that.goingTop = true;
-            //     that.daveDrawObject.offsetY -= 4;
-            //     if(Math.abs(that.daveDrawObject.offsetY) %32 ==0 ) {
-            //         that.keys[1] = false;
-            //         // that.goingTop = false;
-            //     }
-            // } else {
-            //     that.goingTop = false;
-            // }
 
             if(!that.collisionArr.includes('TOP_PROB_COLLISION')) {
                 that.goingTop = true;
@@ -168,6 +177,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 }
             } else {
                 that.goingTop = false;
+                that.keys[1] = false;
             }
         }
     };
@@ -198,8 +208,12 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         if(that.collisionArr.includes('BOTTOM_PROB_COLLISION')) {
             that.goingBottom = false;
             that.goingTop = false;
-            // that.keys[1] = false;
             that.offsetYInc = 0;
+            if(that.daveDrawObject.spriteNumber == 45 || that.daveDrawObject.spriteNumber == 44) {
+                that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[41]);
+                that.daveDrawObject.spriteNumber = 41;
+                that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+            }
         }
     };
 
