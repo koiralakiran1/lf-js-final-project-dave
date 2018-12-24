@@ -10,3 +10,11 @@ export function removeValueFromArray(array, value) {
         return element != value;
     });
 }
+
+export function formatNumberLength(num, length) {
+    var r = "" + num;
+    while (r.length < length) {
+        r = "0" + r;
+    }
+    return r;
+}

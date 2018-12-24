@@ -11,9 +11,10 @@ export default function Game() {
     this.currentMap = this.map.level1MapArray; //Array
     this.currentMapObjArray = [];
     this.daveCharacter = new DaveCharacter(that.currentMap, that.currentMapObjArray);
-    this.scoreBoard = new ScoreBoard(0,0,0);
+    this.scoreBoard = new ScoreBoard();
     this.score = 0;
-    this.life = 3;
+    this.numberOfLivesLeft = 3;
+    this.currentLevel = 1;
     this.consumed = {
         skyBlueDiamondGem: { //11
             value: 100,
@@ -98,7 +99,7 @@ export default function Game() {
     };
     this.mainGameLoop = function() {
         canvasContext.clearRect(0, 0, 640, 320);
-        that.scoreBoard.initScoreBoard();
+        that.scoreBoard.displayScoreBoard(that.score, that.currentLevel, that.numberOfLivesLeft);
         that.detectCollision();
         that.update();
         that.draw();

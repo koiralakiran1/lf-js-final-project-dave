@@ -56,7 +56,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             if(!that.collisionArr.includes('LEFT_BLOCK_PROB_COLLISION')) {
                 that.daveDrawObject.offsetX -= 2;
             }
-            // console.log(that.daveDrawObject);
+            // //console.log(that.daveDrawObject);
         }
     };
     this.updateRight = function() {
@@ -70,40 +70,40 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
 
                 that.daveDrawObject.offsetX += 2;
             }
-            // console.log(that.daveDrawObject.frameIndex, that.daveDrawObject.numberOfFrames());
+            // //console.log(that.daveDrawObject.frameIndex, that.daveDrawObject.numberOfFrames());
         }
     };
     this.updateTop = function() {
         if(that.keys[1]) {
             //change sprites
             if(that.daveDrawObject.spriteNumber == 43) { //left
-                // console.log('up left');
+                // //console.log('up left');
                 that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[45]);
                 that.daveDrawObject.frameIndex = 0;
-                // console.log(that.daveDrawObject);
+                // //console.log(that.daveDrawObject);
                 that.daveDrawObject.spriteNumber = 45;
                 that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
 
             } else if(that.daveDrawObject.spriteNumber == 42) { //right
-                // console.log('up right');
+                // //console.log('up right');
                 that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[44]);
                 that.daveDrawObject.frameIndex = 0;
-                // console.log(that.daveDrawObject);
+                // //console.log(that.daveDrawObject);
                 that.daveDrawObject.spriteNumber = 44;
                 that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
             } else if(that.daveDrawObject.spriteNumber == 41) {
                 if(that.rightKeyPressedLast == false ) {
-                    // console.log('up left');
+                    // //console.log('up left');
                     that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[45]);
                     that.daveDrawObject.frameIndex = 0;
-                    // console.log(that.daveDrawObject);
+                    // //console.log(that.daveDrawObject);
                     that.daveDrawObject.spriteNumber = 45;
                     that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
                 } else {
-                    // console.log('up right');
+                    // //console.log('up right');
                     that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[44]);
                     that.daveDrawObject.frameIndex = 0;
-                    // console.log(that.daveDrawObject);
+                    // //console.log(that.daveDrawObject);
                     that.daveDrawObject.spriteNumber = 44;
                     that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
                 }
@@ -129,23 +129,23 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         if(!that.collisionArr.includes('BOTTOM_BLOCK_PROB_COLLISION') && !that.goingTop) {
             that.goingBottom = true;
             if(that.daveDrawObject.spriteNumber == 43) { //left
-                // console.log('up left');
+                // //console.log('up left');
                 that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[45]);
                 that.daveDrawObject.frameIndex = 0;
-                // console.log(that.daveDrawObject);
+                // //console.log(that.daveDrawObject);
                 that.daveDrawObject.spriteNumber = 45;
                 that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
 
             } else if(that.daveDrawObject.spriteNumber == 42 || that.daveDrawObject.spriteNumber == 41) { //right
-                // console.log('up right');
+                // //console.log('up right');
                 that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[44]);
                 that.daveDrawObject.frameIndex = 0;
-                // console.log(that.daveDrawObject);
+                // //console.log(that.daveDrawObject);
                 that.daveDrawObject.spriteNumber = 44;
                 that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
 
             }
-            // console.log('going bot');
+            // //console.log('going bot');
             that.daveDrawObject.offsetY += 2;
         }
         if(that.collisionArr.includes('BOTTOM_BLOCK_PROB_COLLISION')) {
@@ -170,7 +170,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         var daveIndexAfterWH = convertPositionToIndex(that.daveDrawObject.drawPosX()+that.daveDrawObject.drawWidth-1,
                                                     that.daveDrawObject.drawPosY()+that.daveDrawObject.drawHeight-1);
 
-        // console.log(daveIndex, daveIndexAfterW, daveIndexAfterH, daveIndexAfterWH);
+        // //console.log(daveIndex, daveIndexAfterW, daveIndexAfterH, daveIndexAfterWH);
 
         that.checkProbableBlockCollisionLeft(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
         that.checkProbableBlockCollisionRight(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
@@ -237,6 +237,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         that.checkNonBlockingCollisionCases(daveIndexAfterWH);
     };
 
+
     this.checkBlockingCollisionCases = function(someIndex) {
         switch(that.currentMapObjArray[someIndex].spriteNumber) {
             case 1:
@@ -253,7 +254,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             }
             case 32: { //Door Collision
                 if(newGame.consumed.lampKey) {
-                    console.log('go through the door');
+                    //console.log('go through the door');
                 }
                 return true;
             }
@@ -267,7 +268,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
                 newGame.currentMapObjArray[someIndex].spriteNumber = 0;
                 newGame.currentMapObjArray[someIndex].frameIndex = 0;
-                console.log(newGame.consumed, newGame.score);
+                //console.log(newGame.consumed, newGame.score);
                 break;
             }
             case 12: {
@@ -276,7 +277,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
                 newGame.currentMapObjArray[someIndex].spriteNumber = 0;
                 newGame.currentMapObjArray[someIndex].frameIndex = 0;
-                console.log(newGame.consumed, newGame.score);
+                //console.log(newGame.consumed, newGame.score);
                 break;
             }
             case 13: {
@@ -285,7 +286,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
                 newGame.currentMapObjArray[someIndex].spriteNumber = 0;
                 newGame.currentMapObjArray[someIndex].frameIndex = 0;
-                console.log(newGame.consumed, newGame.score);
+                //console.log(newGame.consumed, newGame.score);
                 break;
             }
             case 14: {
@@ -293,7 +294,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
                 newGame.currentMapObjArray[someIndex].spriteNumber = 0;
                 newGame.currentMapObjArray[someIndex].frameIndex = 0;
-                console.log(newGame.consumed, newGame.score);
+                //console.log(newGame.consumed, newGame.score);
                 break;
             }
             case 15: {
@@ -302,7 +303,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
                 newGame.currentMapObjArray[someIndex].spriteNumber = 0;
                 newGame.currentMapObjArray[someIndex].frameIndex = 0;
-                console.log(newGame.consumed, newGame.score);
+                //console.log(newGame.consumed, newGame.score);
                 break;
             }
             case 16: {
@@ -311,7 +312,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
                 newGame.currentMapObjArray[someIndex].spriteNumber = 0;
                 newGame.currentMapObjArray[someIndex].frameIndex = 0;
-                console.log(newGame.consumed, newGame.score);
+                //console.log(newGame.consumed, newGame.score);
                 break;
             }
             case 17: {
@@ -320,7 +321,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
                 newGame.currentMapObjArray[someIndex].spriteNumber = 0;
                 newGame.currentMapObjArray[someIndex].frameIndex = 0;
-                console.log(newGame.consumed, newGame.score);
+                //console.log(newGame.consumed, newGame.score);
                 break;
             }
             case 18: {
@@ -328,7 +329,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
                 newGame.currentMapObjArray[someIndex].spriteNumber = 0;
                 newGame.currentMapObjArray[someIndex].frameIndex = 0;
-                console.log(newGame.consumed, newGame.score);
+                //console.log(newGame.consumed, newGame.score);
                 break;
             }
             case 19: {
@@ -336,7 +337,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
                 newGame.currentMapObjArray[someIndex].spriteNumber = 0;
                 newGame.currentMapObjArray[someIndex].frameIndex = 0;
-                console.log(newGame.consumed, newGame.score);
+                //console.log(newGame.consumed, newGame.score);
                 break;
             }
             // case 20: {
@@ -350,7 +351,7 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             case 23: {
                 that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[26]);
                 that.daveDrawObject.frameIndex = 0;
-                // console.log(that.daveDrawObject);
+                // //console.log(that.daveDrawObject);
                 that.daveDrawObject.spriteNumber = 26;
                 that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
                 // that.daveDrawObject.update();
@@ -358,6 +359,8 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             }
         }
     };
+
+
     window.addEventListener("keydown", function(event) {
         if(event.keyCode == 37) { //Left
             that.keys[0] = true;
@@ -377,5 +380,4 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             that.keys[2] = false;
         }
     }, false);
-
 }
