@@ -1,11 +1,35 @@
+import * as constants from './constants.js';
+
 var canvas = document.getElementById('canvas');
 var canvasContext = canvas.getContext('2d');
 
-canvasContext.canvas.width = 640; //1280
-canvasContext.canvas.height = 320; //640
+var topScoreCanvas = document.getElementById('top_score_canvas');
+var topScoreCanvasContext = topScoreCanvas.getContext('2d');
 
-canvas.style.border = '2px solid red';
-canvas.style.margin = '20px auto';
+var bottomCanvas = document.getElementById('bottom_canvas');
+var bottomCanvasContext = bottomCanvas.getContext('2d');
+
+var gameDiv = document.getElementById('game_div');
+
+canvasContext.canvas.width = constants.CANVAS_FULL_WIDTH;
+canvasContext.canvas.height = constants.CANVAS_FULL_HEIGHT;
+canvas.style.margin = 'auto';
 canvas.style.display = 'block';
 
-export {canvasContext};
+topScoreCanvasContext.canvas.height = 64;
+topScoreCanvasContext.canvas.width = constants.CANVAS_FULL_WIDTH;
+topScoreCanvas.style.display = 'block';
+topScoreCanvas.style.margin = 'auto';
+
+bottomCanvasContext.canvas.height = 64;
+bottomCanvasContext.canvas.width = constants.CANVAS_FULL_WIDTH;
+bottomCanvas.style.display = 'block';
+bottomCanvas.style.margin = 'auto';
+
+
+gameDiv.style.width = canvasContext.canvas.width + 64 + 'px';
+gameDiv.style.height = canvasContext.canvas.height + 128 + 'px';
+gameDiv.style.backgroundColor = 'black';
+gameDiv.style.margin = 'auto';
+
+export {canvasContext, topScoreCanvasContext, bottomCanvasContext};

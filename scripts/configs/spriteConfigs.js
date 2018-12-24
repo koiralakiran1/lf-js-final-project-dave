@@ -96,12 +96,72 @@ spriteImage.onload = function() {
                 return this.indexY * this.singleHeight;
             },
         },
-        6: {// BLOCK_TRIANGLE_BOTTOM_LEFT
+        // 6: {// BLOCK_TRIANGLE_BOTTOM_LEFT
+        //     isAnimation: false,
+        //     imageSource: spriteImage,
+        //     indexX: 6,
+        //     indexY: 0,
+        //     maxIndexX: 10,
+        //     singleWidth: 64,
+        //     singleHeight: 64,
+        //     spritePosX: function() {
+        //         return this.indexX * this.singleWidth;
+        //     },
+        //     spritePosY: function() {
+        //         return this.indexY * this.singleHeight;
+        //     },
+        // },
+        // 7: {// BLOCK_TRIANGLE_TOP_LEFT
+        //     isAnimation: false,
+        //     imageSource: spriteImage,
+        //     indexX: 7,
+        //     indexY: 0,
+        //     maxIndexX: 10,
+        //     singleWidth: 64,
+        //     singleHeight: 64,
+        //     spritePosX: function() {
+        //         return this.indexX * this.singleWidth;
+        //     },
+        //     spritePosY: function() {
+        //         return this.indexY * this.singleHeight;
+        //     },
+        // },
+        // 8: {// BLOCK_TRIANGLE_TOP_RIGHT
+        //     isAnimation: false,
+        //     imageSource: spriteImage,
+        //     indexX: 8,
+        //     indexY: 0,
+        //     maxIndexX: 10,
+        //     singleWidth: 64,
+        //     singleHeight: 64,
+        //     spritePosX: function() {
+        //         return this.indexX * this.singleWidth;
+        //     },
+        //     spritePosY: function() {
+        //         return this.indexY * this.singleHeight;
+        //     },
+        // },
+        // 9: {// BLOCK_TRIANGLE_BOTTOM_RIGHT
+        //     isAnimation: false,
+        //     imageSource: spriteImage,
+        //     indexX: 9,
+        //     indexY: 0,
+        //     maxIndexX: 10,
+        //     singleWidth: 64,
+        //     singleHeight: 64,
+        //     spritePosX: function() {
+        //         return this.indexX * this.singleWidth;
+        //     },
+        //     spritePosY: function() {
+        //         return this.indexY * this.singleHeight;
+        //     },
+        // },
+        6: {// EXTRA_TUNNEL_RIGHT
             isAnimation: false,
             imageSource: spriteImage,
-            indexX: 6,
-            indexY: 0,
-            maxIndexX: 10,
+            indexX: 2,
+            indexY: 8,
+            maxIndexX: 4,
             singleWidth: 64,
             singleHeight: 64,
             spritePosX: function() {
@@ -111,12 +171,12 @@ spriteImage.onload = function() {
                 return this.indexY * this.singleHeight;
             },
         },
-        7: {// BLOCK_TRIANGLE_TOP_LEFT
+        7: {// EXTRA_TUNNEL_BOTTOM
             isAnimation: false,
             imageSource: spriteImage,
-            indexX: 7,
-            indexY: 0,
-            maxIndexX: 10,
+            indexX: 3,
+            indexY: 8,
+            maxIndexX: 4,
             singleWidth: 64,
             singleHeight: 64,
             spritePosX: function() {
@@ -126,27 +186,12 @@ spriteImage.onload = function() {
                 return this.indexY * this.singleHeight;
             },
         },
-        8: {// BLOCK_TRIANGLE_TOP_RIGHT
+        8: {// EXTRA_BLOCK_PINK
             isAnimation: false,
             imageSource: spriteImage,
-            indexX: 8,
-            indexY: 0,
-            maxIndexX: 10,
-            singleWidth: 64,
-            singleHeight: 64,
-            spritePosX: function() {
-                return this.indexX * this.singleWidth;
-            },
-            spritePosY: function() {
-                return this.indexY * this.singleHeight;
-            },
-        },
-        9: {// BLOCK_TRIANGLE_BOTTOM_RIGHT
-            isAnimation: false,
-            imageSource: spriteImage,
-            indexX: 9,
-            indexY: 0,
-            maxIndexX: 10,
+            indexX: 4,
+            indexY: 8,
+            maxIndexX: 4,
             singleWidth: 64,
             singleHeight: 64,
             spritePosX: function() {
@@ -623,6 +668,141 @@ spriteImage.onload = function() {
                 return (this.indexY * this.singleHeight);
             },
         },
+        71: {// letterA
+            isAnimation: false,
+            imageSource: spriteImage,
+            indexX: 0,
+            indexY: 11,
+            maxIndexX: 0,
+            singleWidth: 32,
+            singleHeight: 48,
+            spritePosX: function() {
+                return this.indexX * this.singleWidth;
+            },
+            spritePosY: function() {
+                return (this.indexY * 64);
+            },
+        },
+        72: {// letterC
+            isAnimation: false,
+            imageSource: spriteImage,
+            indexX: 1,
+            indexY: 11,
+            maxIndexX: 1,
+            singleWidth: 32,
+            singleHeight: 48,
+            spritePosX: function() {
+                return this.indexX * this.singleWidth;
+            },
+            spritePosY: function() {
+                return (this.indexY * 64);
+            },
+        },
+        74: {// letterE
+            isAnimation: false,
+            imageSource: spriteImage,
+            indexX: 3,
+            indexY: 11,
+            maxIndexX: 3,
+            singleWidth: 32,
+            singleHeight: 48,
+            spritePosX: function() {
+                return this.indexX * this.singleWidth;
+            },
+            spritePosY: function() {
+                return (this.indexY * 64);
+            },
+        },
+        80: {// letterO
+            isAnimation: false,
+            imageSource: spriteImage,
+            indexX: 10,
+            indexY: 11,
+            maxIndexX: 10,
+            singleWidth: 32,
+            singleHeight: 48,
+            spritePosX: function() {
+                return this.indexX * this.singleWidth;
+            },
+            spritePosY: function() {
+                return (this.indexY * 64);
+            },
+        },
+        83: {// letterR
+            isAnimation: false,
+            imageSource: spriteImage,
+            indexX: 12,
+            indexY: 11,
+            maxIndexX: 12,
+            singleWidth: 32,
+            singleHeight: 48,
+            spritePosX: function() {
+                return this.indexX * this.singleWidth;
+            },
+            spritePosY: function() {
+                return (this.indexY * 64);
+            },
+        },
+        84: {// letterS
+            isAnimation: false,
+            imageSource: spriteImage,
+            indexX: 13,
+            indexY: 11,
+            maxIndexX: 13,
+            singleWidth: 32,
+            singleHeight: 48,
+            spritePosX: function() {
+                return this.indexX * this.singleWidth;
+            },
+            spritePosY: function() {
+                return (this.indexY * 64);
+            },
+        },
+        88: {// letterS
+            isAnimation: false,
+            imageSource: spriteImage,
+            indexX: 17,
+            indexY: 11,
+            maxIndexX: 17,
+            singleWidth: 32,
+            singleHeight: 48,
+            spritePosX: function() {
+                return this.indexX * this.singleWidth;
+            },
+            spritePosY: function() {
+                return (this.indexY * 64);
+            },
+        },
+        90: {// letterS
+            isAnimation: false,
+            imageSource: spriteImage,
+            indexX: 0,
+            indexY: 12,
+            maxIndexX: 0,
+            singleWidth: 32,
+            singleHeight: 48,
+            spritePosX: function() {
+                return this.indexX * this.singleWidth;
+            },
+            spritePosY: function() {
+                return ((this.indexY-1) * 64 + 48);
+            },
+        },
+        61: {
+            isAnimation: false,
+            imageSource: spriteImage,
+            indexX: 1,
+            indexY: 16,
+            maxIndexX: 1,
+            singleWidth: 128,
+            singleHeight: 16,
+            spritePosX: function() {
+                return this.indexX * this.singleWidth;
+            },
+            spritePosY: function() {
+                return (10*64);
+            },
+        }
     };
 };
 spriteImage.src = './assets/imageAssets/highres/pngs/all_in_one.png';

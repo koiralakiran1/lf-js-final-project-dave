@@ -3,6 +3,7 @@ import {spriteConfigs} from '../configs/spriteConfigs.js';
 import SpriteRenderer from './SpriteRenderer.js';
 import DaveCharacter from './DaveCharacter.js';
 import {canvasContext} from '../helpers/canvasInitialization.js';
+import ScoreBoard from './ScoreBoard.js';
 
 export default function Game() {
     var that = this;
@@ -10,7 +11,37 @@ export default function Game() {
     this.currentMap = this.map.level1MapArray; //Array
     this.currentMapObjArray = [];
     this.daveCharacter = new DaveCharacter(that.currentMap, that.currentMapObjArray);
+    this.scoreBoard = new ScoreBoard(0,0,0);
     this.score = 0;
+    this.consumed = {
+        skyBlueDiamondGem: {
+            value: 100,
+            consumedCount: 0
+        },
+        redDiamondGem: {
+            value: 150,
+            consumedCount: 0
+        },
+        pinkSphere: {
+            value: 200,
+            consumedCount: 0
+        },
+        gun: false,
+        redYellowRing: {
+            value: 250,
+            consumedCount: 0
+        },
+        greenGreyWand: {
+            value: 300,
+            consumedCount: 0
+        },
+        redYellowCrown: {
+            value: 350,
+            consumedCount: 0
+        },
+        lampKey: false,
+        jetPack: false
+    };
 
     this.createMapObjArray = function (mapArray) {
         for (var i = 0, x = 0, y = 0; i < mapArray.length; i++) {
@@ -66,6 +97,7 @@ export default function Game() {
     };
     this.mainGameLoop = function() {
         canvasContext.clearRect(0, 0, 640, 320);
+        that.scoreBoard.initScoreBoard();
         that.detectCollision();
         that.update();
         that.draw();

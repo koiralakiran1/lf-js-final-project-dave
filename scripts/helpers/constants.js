@@ -60,3 +60,15 @@ export const SMALL_BLOCK_BLUE = 52;
 export const SMALL_BLOCK_GREY = 53;
 export const SMALL_KILLER_WATER = 54;
 export const SMALL_KILLER_FIRE = 55;
+
+
+
+
+
+
+export const SINGLE_SPRITE_WIDTH = 64;
+export const SINGLE_SPRITE_HEIGHT = 64;
+export const CANVAS_DRAW_WIDTH = 32;
+export const CANVAS_DRAW_HEIGHT = 32;
+export const CANVAS_FULL_WIDTH = 640;
+export const CANVAS_FULL_HEIGHT = 320;
