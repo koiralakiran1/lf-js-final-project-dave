@@ -10,17 +10,7 @@ export default function ScoreBoard(score, level, keyRetrieved) {
 
     this.initScoreBoard = function() {
         topScoreCanvasContext.clearRect(0,0,640,64);
-        // topScoreCanvasContext.drawImage(
-        //     spriteConfigs[91].imageSource,
-        //     spriteConfigs[91].spritePosX(),
-        //     spriteConfigs[91].spritePosY(),
-        //     spriteConfigs[91].singleWidth,
-        //     spriteConfigs[91].singleHeight,
-        //     0,
-        //     16,
-        //     spriteConfigs[91].singleWidth,
-        //     spriteConfigs[91].singleHeight
-        // );
+
         topScoreCanvasContext.drawImage(
             spriteConfigs[84].imageSource,
             spriteConfigs[84].spritePosX(),

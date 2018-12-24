@@ -13,6 +13,7 @@ export default function Game() {
     this.daveCharacter = new DaveCharacter(that.currentMap, that.currentMapObjArray);
     this.scoreBoard = new ScoreBoard(0,0,0);
     this.score = 0;
+    this.life = 3;
     this.consumed = {
         skyBlueDiamondGem: {
             value: 100,

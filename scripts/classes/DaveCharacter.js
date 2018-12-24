@@ -177,201 +177,112 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         that.checkProbableBlockCollisionTop(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
         that.checkProbableBlockCollisionBottom(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
 
-        that.checkConsumableCollisionLeft(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
-        that.checkConsumableCollisionRight(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
-        that.checkConsumableCollisionTop(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
-        that.checkConsumableCollisionBottom(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
-
-        that.checkKillersCollisionLeft(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
-        that.checkKillersCollisionRight(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
-        that.checkKillersCollisionTop(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
-        that.checkKillersCollisionBottom(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
-
+        that.checkNonBlockingCollisionLeft(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
+        that.checkNonBlockingCollisionRight(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
+        that.checkNonBlockingCollisionTop(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
+        that.checkNonBlockingCollisionBottom(daveIndex,daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH);
     };
 
     this.checkProbableBlockCollisionLeft = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndexAfterW-1].spriteNumber >= 1 && that.currentMapObjArray[daveIndexAfterW-1].spriteNumber <=10) ||
-            (that.currentMapObjArray[daveIndexAfterWH-1].spriteNumber >= 1 && that.currentMapObjArray[daveIndexAfterWH-1].spriteNumber <=10)) {
-                if(!that.collisionArr.includes('LEFT_BLOCK_PROB_COLLISION')) {
-                    that.collisionArr.push('LEFT_BLOCK_PROB_COLLISION');
-                }
+        if(that.checkBlockingCollisionCases(daveIndexAfterW-1) || that.checkBlockingCollisionCases(daveIndexAfterWH-1)) {
+            if(!that.collisionArr.includes('LEFT_BLOCK_PROB_COLLISION')) {
+                that.collisionArr.push('LEFT_BLOCK_PROB_COLLISION');
+            }
         } else if(that.collisionArr.includes('LEFT_BLOCK_PROB_COLLISION')) {
             that.collisionArr = removeValueFromArray(that.collisionArr, 'LEFT_BLOCK_PROB_COLLISION');
         }
     };
     this.checkProbableBlockCollisionRight = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndex+1].spriteNumber >= 1 && that.currentMapObjArray[daveIndex+1].spriteNumber <=10) ||
-            (that.currentMapObjArray[daveIndexAfterH+1].spriteNumber >= 1 && that.currentMapObjArray[daveIndexAfterH+1].spriteNumber <=10)) {
-                if(!that.collisionArr.includes('RIGHT_BLOCK_PROB_COLLISION')) {
-                    that.collisionArr.push('RIGHT_BLOCK_PROB_COLLISION');
-                }
+        if(that.checkBlockingCollisionCases(daveIndex+1) || that.checkBlockingCollisionCases(daveIndexAfterH+1)) {
+            if(!that.collisionArr.includes('RIGHT_BLOCK_PROB_COLLISION')) {
+                that.collisionArr.push('RIGHT_BLOCK_PROB_COLLISION');
+            }
         } else if(that.collisionArr.includes('RIGHT_BLOCK_PROB_COLLISION')) {
             that.collisionArr = removeValueFromArray(that.collisionArr, 'RIGHT_BLOCK_PROB_COLLISION');
         }
     };
     this.checkProbableBlockCollisionTop = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndexAfterH-20].spriteNumber >= 1 && that.currentMapObjArray[daveIndexAfterH-20].spriteNumber <=10) ||
-            (that.currentMapObjArray[daveIndexAfterWH-20].spriteNumber >= 1 && that.currentMapObjArray[daveIndexAfterWH-20].spriteNumber <=10)) {
-                if(!that.collisionArr.includes('TOP_BLOCK_PROB_COLLISION')) {
-                    that.collisionArr.push('TOP_BLOCK_PROB_COLLISION');
-                }
+        if(that.checkBlockingCollisionCases(daveIndexAfterH-20) || that.checkBlockingCollisionCases(daveIndexAfterWH-20)) {
+            if(!that.collisionArr.includes('TOP_BLOCK_PROB_COLLISION')) {
+                that.collisionArr.push('TOP_BLOCK_PROB_COLLISION');
+            }
         } else if(that.collisionArr.includes('TOP_BLOCK_PROB_COLLISION')) {
             that.collisionArr = removeValueFromArray(that.collisionArr, 'TOP_BLOCK_PROB_COLLISION');
         }
     };
     this.checkProbableBlockCollisionBottom = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndex+20].spriteNumber >= 1 && that.currentMapObjArray[daveIndex+20].spriteNumber <=10) ||
-            (that.currentMapObjArray[daveIndexAfterW+20].spriteNumber >= 1 && that.currentMapObjArray[daveIndexAfterW+20].spriteNumber <=10)) {
-                if(!that.collisionArr.includes('BOTTOM_BLOCK_PROB_COLLISION')) {
-                    that.collisionArr.push('BOTTOM_BLOCK_PROB_COLLISION');
-                }
+        if(that.checkBlockingCollisionCases(daveIndex+20) || that.checkBlockingCollisionCases(daveIndexAfterW+20)) {
+            if(!that.collisionArr.includes('BOTTOM_BLOCK_PROB_COLLISION')) {
+                that.collisionArr.push('BOTTOM_BLOCK_PROB_COLLISION');
+            }
         } else if(that.collisionArr.includes('BOTTOM_BLOCK_PROB_COLLISION')) {
             that.collisionArr = removeValueFromArray(that.collisionArr, 'BOTTOM_BLOCK_PROB_COLLISION');
         }
     };
 
-
-    this.checkConsumableCollisionLeft = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndex].spriteNumber >= 11 && that.currentMapObjArray[daveIndex].spriteNumber <=20)) {
-            //consumable collision left
-            newGame.currentMapObjArray[daveIndex] = Object.assign(newGame.currentMapObjArray[daveIndex], spriteConfigs[0]);
-            newGame.currentMapObjArray[daveIndex].spriteNumber = 0;
-            newGame.currentMapObjArray[daveIndex].frameIndex = 0;
-        }
-        if((that.currentMapObjArray[daveIndexAfterH].spriteNumber >= 11 && that.currentMapObjArray[daveIndexAfterH].spriteNumber <=20)) {
-            newGame.currentMapObjArray[daveIndexAfterH] = Object.assign(newGame.currentMapObjArray[daveIndexAfterH], spriteConfigs[0]);
-            newGame.currentMapObjArray[daveIndexAfterH].spriteNumber = 0;
-            newGame.currentMapObjArray[daveIndexAfterH].frameIndex = 0;
-        }
+    this.checkNonBlockingCollisionLeft = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
+        that.checkNonBlockingCollisionCases(daveIndex);
+        that.checkNonBlockingCollisionCases(daveIndexAfterH);
     };
-    this.checkConsumableCollisionRight = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndexAfterW].spriteNumber >= 11 && that.currentMapObjArray[daveIndexAfterW].spriteNumber <=20)) {
-                // consumable collision right
-            newGame.currentMapObjArray[daveIndexAfterW] = Object.assign(newGame.currentMapObjArray[daveIndexAfterW], spriteConfigs[0]);
-            newGame.currentMapObjArray[daveIndexAfterW].spriteNumber = 0;
-            newGame.currentMapObjArray[daveIndexAfterW].frameIndex = 0;
-        }
-        if((that.currentMapObjArray[daveIndexAfterWH].spriteNumber >= 11 && that.currentMapObjArray[daveIndexAfterWH].spriteNumber <=20)) {
-            newGame.currentMapObjArray[daveIndexAfterWH] = Object.assign(newGame.currentMapObjArray[daveIndexAfterWH], spriteConfigs[0]);
-            newGame.currentMapObjArray[daveIndexAfterWH].spriteNumber = 0;
-            newGame.currentMapObjArray[daveIndexAfterWH].frameIndex = 0;
-        }
+    this.checkNonBlockingCollisionRight = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
+        that.checkNonBlockingCollisionCases(daveIndexAfterW);
+        that.checkNonBlockingCollisionCases(daveIndexAfterWH);
     };
-    this.checkConsumableCollisionTop = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndex].spriteNumber >= 11 && that.currentMapObjArray[daveIndex].spriteNumber <=20)) {
-            // consumable collision top
-            newGame.currentMapObjArray[daveIndex] = Object.assign(newGame.currentMapObjArray[daveIndex], spriteConfigs[0]);
-            newGame.currentMapObjArray[daveIndex].spriteNumber = 0;
-            newGame.currentMapObjArray[daveIndex].frameIndex = 0;
-        }
-        if((that.currentMapObjArray[daveIndexAfterW].spriteNumber >= 11 && that.currentMapObjArray[daveIndexAfterW].spriteNumber <=20)) {
-            newGame.currentMapObjArray[daveIndexAfterW] = Object.assign(newGame.currentMapObjArray[daveIndexAfterW], spriteConfigs[0]);
-            newGame.currentMapObjArray[daveIndexAfterW].spriteNumber = 0;
-            newGame.currentMapObjArray[daveIndexAfterW].frameIndex = 0;
-        }
+    this.checkNonBlockingCollisionTop = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
+        that.checkNonBlockingCollisionCases(daveIndex);
+        that.checkNonBlockingCollisionCases(daveIndexAfterW);
     };
-    this.checkConsumableCollisionBottom = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndexAfterH].spriteNumber >= 11 && that.currentMapObjArray[daveIndexAfterH].spriteNumber <= 20)) {
-            // consumable collision bottom
-            newGame.currentMapObjArray[daveIndexAfterH] = Object.assign(newGame.currentMapObjArray[daveIndexAfterH], spriteConfigs[0]);
-            newGame.currentMapObjArray[daveIndexAfterH].spriteNumber = 0;
-            newGame.currentMapObjArray[daveIndexAfterH].frameIndex = 0;
-        }
-        if((that.currentMapObjArray[daveIndexAfterWH].spriteNumber >= 11 && that.currentMapObjArray[daveIndexAfterWH].spriteNumber <= 20)) {
-            newGame.currentMapObjArray[daveIndexAfterWH] = Object.assign(newGame.currentMapObjArray[daveIndexAfterWH], spriteConfigs[0]);
-            newGame.currentMapObjArray[daveIndexAfterWH].spriteNumber = 0;
-            newGame.currentMapObjArray[daveIndexAfterWH].frameIndex = 0;
-        }
+    this.checkNonBlockingCollisionBottom = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
+        that.checkNonBlockingCollisionCases(daveIndexAfterH);
+        that.checkNonBlockingCollisionCases(daveIndexAfterWH);
     };
 
-    this.checkKillersCollisionLeft = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndex].spriteNumber >= 21 && that.currentMapObjArray[daveIndex].spriteNumber <=23)) {
-            //consumable collision left
-            that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[26]);
-            that.daveDrawObject.frameIndex = 0;
-            // console.log(that.daveDrawObject);
-            that.daveDrawObject.spriteNumber = 26;
-            that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
-        }
-        if((that.currentMapObjArray[daveIndexAfterH].spriteNumber >= 21 && that.currentMapObjArray[daveIndexAfterH].spriteNumber <=23)) {
-            that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[26]);
-            that.daveDrawObject.frameIndex = 0;
-            // console.log(that.daveDrawObject);
-            that.daveDrawObject.spriteNumber = 26;
-            that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
-        }
-    };
-    this.checkKillersCollisionRight = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndexAfterW].spriteNumber >= 21 && that.currentMapObjArray[daveIndexAfterW].spriteNumber <=23)) {
-            // consumable collision right
-            that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[26]);
-            that.daveDrawObject.frameIndex = 0;
-            // console.log(that.daveDrawObject);
-            that.daveDrawObject.spriteNumber = 26;
-            that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
-        }
-        if((that.currentMapObjArray[daveIndexAfterWH].spriteNumber >= 21 && that.currentMapObjArray[daveIndexAfterWH].spriteNumber <=23)) {
-            that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[26]);
-            that.daveDrawObject.frameIndex = 0;
-            // console.log(that.daveDrawObject);
-            that.daveDrawObject.spriteNumber = 26;
-            that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+    this.checkBlockingCollisionCases = function(someIndex) {
+        switch(that.currentMapObjArray[someIndex].spriteNumber) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10: {
+                return true;
+            }
         }
     };
-    this.checkKillersCollisionTop = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndex].spriteNumber >= 21 && that.currentMapObjArray[daveIndex].spriteNumber <=23)) {
-            // consumable collision top
-            that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[26]);
-            that.daveDrawObject.frameIndex = 0;
-            // console.log(that.daveDrawObject);
-            that.daveDrawObject.spriteNumber = 26;
-            that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
-        }
-        if((that.currentMapObjArray[daveIndexAfterW].spriteNumber >= 21 && that.currentMapObjArray[daveIndexAfterW].spriteNumber <=23)) {
-            that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[26]);
-            that.daveDrawObject.frameIndex = 0;
-            // console.log(that.daveDrawObject);
-            that.daveDrawObject.spriteNumber = 26;
-            that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
-        }
-    };
-    this.checkKillersCollisionBottom = function(daveIndex, daveIndexAfterH, daveIndexAfterW, daveIndexAfterWH) {
-        if((that.currentMapObjArray[daveIndexAfterH].spriteNumber >= 21 && that.currentMapObjArray[daveIndexAfterH] <= 23)) {
-            // consumable collision bottom
-            that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[26]);
-            that.daveDrawObject.frameIndex = 0;
-            // console.log(that.daveDrawObject);
-            that.daveDrawObject.spriteNumber = 26;
-            that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
-        }
-        if((that.currentMapObjArray[daveIndexAfterWH].spriteNumber >= 21 && that.currentMapObjArray[daveIndexAfterWH].spriteNumber <= 23)) {
-            that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[26]);
-            that.daveDrawObject.frameIndex = 0;
-            // console.log(that.daveDrawObject);
-            that.daveDrawObject.spriteNumber = 26;
-            that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+    this.checkNonBlockingCollisionCases = function(someIndex) {
+        switch(that.currentMapObjArray[someIndex].spriteNumber) {
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+            case 20: {
+                newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
+                newGame.currentMapObjArray[someIndex].spriteNumber = 0;
+                newGame.currentMapObjArray[someIndex].frameIndex = 0;
+                break;
+            }
+            case 21:
+            case 22:
+            case 23: {
+                that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[26]);
+                that.daveDrawObject.frameIndex = 0;
+                // console.log(that.daveDrawObject);
+                that.daveDrawObject.spriteNumber = 26;
+                that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+                // that.daveDrawObject.update();
+                break;
+            }
         }
     };
-
-    // this.checkConsumableCollision = function(someIndex) {
-    //     switch(that.currentMapObjArray[someIndex].spriteNumber) {
-    //         case 11: case 12: case 13: case 14: case 15: case 16: case 17:
-    //         case 18: case 19: case 20: {
-    //             newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
-    //             newGame.currentMapObjArray[someIndex].spriteNumber = 0;
-    //             newGame.currentMapObjArray[someIndex].frameIndex = 0;
-    //             break;
-    //         }
-    //         case 21: case 22: case 23: case 24: case 25: case 26: case 27:
-    //         case 28: case 29: case 30: {
-    //             that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[26]);
-    //             that.daveDrawObject.frameIndex = 0;
-    //             // console.log(that.daveDrawObject);
-    //             that.daveDrawObject.spriteNumber = 26;
-    //             that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
-    //         }
-    //     }
-    // };
 
     window.addEventListener("keydown", function(event) {
         if(event.keyCode == 37) { //Left
