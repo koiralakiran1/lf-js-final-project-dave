@@ -1,6 +1,12 @@
 export var spriteConfigs = {};
+export var gttdConfigs = {};
 
 var spriteImage = new Image();
+var ddImage1 = new Image();
+var ddImage2 = new Image();
+var ddImage3 = new Image();
+var ddImage4 = new Image();
+var goThruTheDoorImage = new Image();
 
 
 spriteImage.onload = function() {
@@ -985,4 +991,23 @@ spriteImage.onload = function() {
         },
     };
 };
-spriteImage.src = './assets/imageAssets/highres/pngs/all_in_one.png';
+goThruTheDoorImage.onload = function() {
+    console.log('gttd loaded');
+    gttdConfigs = { //gttdImage
+            isAnimation: false,
+            imageSource: goThruTheDoorImage,
+            indexX: 0,
+            indexY: 0,
+            maxIndexX: 0,
+            singleWidth: 344,
+            singleHeight: 28,
+            spritePosX: function() {
+                return this.indexX * this.singleWidth;
+            },
+            spritePosY: function() {
+                return this.indexY * this.singleHeight;
+            },
+    };
+};
+spriteImage.src = './assets/imageAssets/highres/pngs/all_in_one_transp.png';
+goThruTheDoorImage.src = './assets/imageAssets/highres/pngs/gttd.png';

@@ -355,13 +355,15 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
                 that.daveDrawObject.spriteNumber = 26;
                 that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
                 // that.daveDrawObject.update();
+                window.cancelAnimationFrame(window.animator);
+                window.removeEventListener("keydown", that.keyDownEventListener, false);
+                window.removeEventListener("keyup", that.keyUpEventListener, false);
                 break;
             }
         }
     };
 
-
-    window.addEventListener("keydown", function(event) {
+    this.keyDownEventListener = function(event) {
         if(event.keyCode == 37) { //Left
             that.keys[0] = true;
         }
@@ -371,13 +373,13 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
         if(event.keyCode == 38 && !that.goingBottom && !that.goingTop) { //top
             that.keys[1] = true;
         }
-    }, false);
-    window.addEventListener("keyup", function(event) {
+    };
+    this.keyUpEventListener = function(event) {
         if(event.keyCode == 37) { //Left
             that.keys[0] = false;
         }
         if(event.keyCode == 39) { //Right
             that.keys[2] = false;
         }
-    }, false);
+    };
 }

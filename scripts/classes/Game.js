@@ -72,7 +72,6 @@ export default function Game() {
                 return this.drawHeight * this.yInc + this.offsetY;
             };
 
-
             currentSpriteConfig.frameIndex = 0;
             currentSpriteConfig.tickCount = 0;
             currentSpriteConfig.ticksPerFrame = 10;
@@ -92,13 +91,15 @@ export default function Game() {
     };
 
     this.initGame = function () {
-
         this.createMapObjArray(that.currentMap);
         this.daveCharacter.initDaveCharacter();
+        window.addEventListener("keydown", that.daveCharacter.keyDownEventListener, false);
+        window.addEventListener("keyup", that.daveCharacter.keyUpEventListener, false);
         this.mainGameLoop();
     };
     this.mainGameLoop = function() {
         canvasContext.clearRect(0, 0, 640, 320);
+        window.animator = window.requestAnimationFrame(that.mainGameLoop);
         that.displayBoard.displayTopScoreBoard(that.score, that.currentLevel, that.numberOfLivesLeft);
         if(that.consumed.lampKey) {
             that.displayBoard.updateBottomCanvas();
@@ -106,7 +107,6 @@ export default function Game() {
         that.detectCollision();
         that.update();
         that.draw();
-        requestAnimationFrame(that.mainGameLoop);
     };
     this.update = function() {
         that.map.updateMap(that.currentMapObjArray);
@@ -118,8 +118,5 @@ export default function Game() {
     };
     this.detectCollision = function () {
         that.daveCharacter.detectDaveCollision();
-    };
-    this.increaseScore = function() {
-
     };
 }

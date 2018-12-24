@@ -1,5 +1,5 @@
 import {topScoreCanvasContext} from '../helpers/canvasInitialization.js';
-import {spriteConfigs} from '../configs/spriteConfigs.js';
+import {spriteConfigs, gttdConfigs} from '../configs/spriteConfigs.js';
 import {formatNumberLength} from '../helpers/utils.js';
 import {bottomCanvasContext} from '../helpers/canvasInitialization.js';
 
@@ -292,14 +292,9 @@ export default function DisplayBoard() {
         bottomCanvasContext.clearRect(0,0,640,64);
         //draw GO THRU THE DOOR IMAGE
         bottomCanvasContext.drawImage(
-            spriteConfigs[84].imageSource,
-            spriteConfigs[84].spritePosX(),
-            spriteConfigs[84].spritePosY(),
-            spriteConfigs[84].singleWidth,
-            spriteConfigs[84].singleHeight,
-            0,
-            16,
-            16,32
-        );
+            gttdConfigs.imageSource,
+            gttdConfigs.spritePosX(), gttdConfigs.spritePosY(),
+            gttdConfigs.singleWidth, gttdConfigs.singleHeight,
+            148, 16, gttdConfigs.singleWidth, gttdConfigs.singleHeight);
     };
 }
