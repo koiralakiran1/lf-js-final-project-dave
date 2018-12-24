@@ -251,25 +251,100 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             case 10: {
                 return true;
             }
+            case 32: { //Door Collision
+                if(newGame.consumed.lampKey) {
+                    console.log('go through the door');
+                }
+                return true;
+            }
         }
     };
     this.checkNonBlockingCollisionCases = function(someIndex) {
         switch(that.currentMapObjArray[someIndex].spriteNumber) {
-            case 11:
-            case 12:
-            case 13:
-            case 14:
-            case 15:
-            case 16:
-            case 17:
-            case 18:
-            case 19:
-            case 20: {
+            case 11: {
+                newGame.consumed.skyBlueDiamondGem.consumedCount++;
+                newGame.score += newGame.consumed.skyBlueDiamondGem.value;
                 newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
                 newGame.currentMapObjArray[someIndex].spriteNumber = 0;
                 newGame.currentMapObjArray[someIndex].frameIndex = 0;
+                console.log(newGame.consumed, newGame.score);
                 break;
             }
+            case 12: {
+                newGame.consumed.redDiamondGem.consumedCount++;
+                newGame.score += newGame.consumed.redDiamondGem.value;
+                newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
+                newGame.currentMapObjArray[someIndex].spriteNumber = 0;
+                newGame.currentMapObjArray[someIndex].frameIndex = 0;
+                console.log(newGame.consumed, newGame.score);
+                break;
+            }
+            case 13: {
+                newGame.consumed.pinkSphere.consumedCount++;
+                newGame.score += newGame.consumed.pinkSphere.value;
+                newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
+                newGame.currentMapObjArray[someIndex].spriteNumber = 0;
+                newGame.currentMapObjArray[someIndex].frameIndex = 0;
+                console.log(newGame.consumed, newGame.score);
+                break;
+            }
+            case 14: {
+                newGame.consumed.gun = true;
+                newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
+                newGame.currentMapObjArray[someIndex].spriteNumber = 0;
+                newGame.currentMapObjArray[someIndex].frameIndex = 0;
+                console.log(newGame.consumed, newGame.score);
+                break;
+            }
+            case 15: {
+                newGame.consumed.redYellowRing.consumedCount++;
+                newGame.score += newGame.consumed.redYellowRing.value;
+                newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
+                newGame.currentMapObjArray[someIndex].spriteNumber = 0;
+                newGame.currentMapObjArray[someIndex].frameIndex = 0;
+                console.log(newGame.consumed, newGame.score);
+                break;
+            }
+            case 16: {
+                newGame.consumed.greenGreyWand.consumedCount++;
+                newGame.score += newGame.consumed.greenGreyWand.value;
+                newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
+                newGame.currentMapObjArray[someIndex].spriteNumber = 0;
+                newGame.currentMapObjArray[someIndex].frameIndex = 0;
+                console.log(newGame.consumed, newGame.score);
+                break;
+            }
+            case 17: {
+                newGame.consumed.redYellowCrown.consumedCount++;
+                newGame.score += newGame.consumed.redYellowCrown.value;
+                newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
+                newGame.currentMapObjArray[someIndex].spriteNumber = 0;
+                newGame.currentMapObjArray[someIndex].frameIndex = 0;
+                console.log(newGame.consumed, newGame.score);
+                break;
+            }
+            case 18: {
+                newGame.consumed.lampKey = true;
+                newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
+                newGame.currentMapObjArray[someIndex].spriteNumber = 0;
+                newGame.currentMapObjArray[someIndex].frameIndex = 0;
+                console.log(newGame.consumed, newGame.score);
+                break;
+            }
+            case 19: {
+                newGame.consumed.jetPack = true;
+                newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
+                newGame.currentMapObjArray[someIndex].spriteNumber = 0;
+                newGame.currentMapObjArray[someIndex].frameIndex = 0;
+                console.log(newGame.consumed, newGame.score);
+                break;
+            }
+            // case 20: {
+            //     newGame.currentMapObjArray[someIndex] = Object.assign(newGame.currentMapObjArray[someIndex], spriteConfigs[0]);
+            //     newGame.currentMapObjArray[someIndex].spriteNumber = 0;
+            //     newGame.currentMapObjArray[someIndex].frameIndex = 0;
+            //     break;
+            // }
             case 21:
             case 22:
             case 23: {
@@ -283,7 +358,6 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             }
         }
     };
-
     window.addEventListener("keydown", function(event) {
         if(event.keyCode == 37) { //Left
             that.keys[0] = true;

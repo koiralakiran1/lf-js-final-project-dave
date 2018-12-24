@@ -15,33 +15,33 @@ export default function Game() {
     this.score = 0;
     this.life = 3;
     this.consumed = {
-        skyBlueDiamondGem: {
+        skyBlueDiamondGem: { //11
             value: 100,
             consumedCount: 0
         },
-        redDiamondGem: {
+        redDiamondGem: { //12
             value: 150,
             consumedCount: 0
         },
-        pinkSphere: {
+        pinkSphere: { //13
+            value: 50,
+            consumedCount: 0
+        },
+        gun: false, //14
+        redYellowRing: {//15
             value: 200,
             consumedCount: 0
         },
-        gun: false,
-        redYellowRing: {
-            value: 250,
-            consumedCount: 0
-        },
-        greenGreyWand: {
+        greenGreyWand: {//16
             value: 300,
             consumedCount: 0
         },
-        redYellowCrown: {
+        redYellowCrown: {//17
             value: 350,
             consumedCount: 0
         },
-        lampKey: false,
-        jetPack: false
+        lampKey: false,//18
+        jetPack: false//19
     };
 
     this.createMapObjArray = function (mapArray) {
