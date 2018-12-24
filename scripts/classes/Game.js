@@ -3,7 +3,7 @@ import {spriteConfigs} from '../configs/spriteConfigs.js';
 import SpriteRenderer from './SpriteRenderer.js';
 import DaveCharacter from './DaveCharacter.js';
 import {canvasContext} from '../helpers/canvasInitialization.js';
-import ScoreBoard from './ScoreBoard.js';
+import DisplayBoard from './DisplayBoard.js';
 
 export default function Game() {
     var that = this;
@@ -11,7 +11,7 @@ export default function Game() {
     this.currentMap = this.map.level1MapArray; //Array
     this.currentMapObjArray = [];
     this.daveCharacter = new DaveCharacter(that.currentMap, that.currentMapObjArray);
-    this.scoreBoard = new ScoreBoard();
+    this.displayBoard = new DisplayBoard();
     this.score = 0;
     this.numberOfLivesLeft = 3;
     this.currentLevel = 1;
@@ -99,7 +99,10 @@ export default function Game() {
     };
     this.mainGameLoop = function() {
         canvasContext.clearRect(0, 0, 640, 320);
-        that.scoreBoard.displayScoreBoard(that.score, that.currentLevel, that.numberOfLivesLeft);
+        that.displayBoard.displayTopScoreBoard(that.score, that.currentLevel, that.numberOfLivesLeft);
+        if(that.consumed.lampKey) {
+            that.displayBoard.updateBottomCanvas();
+        }
         that.detectCollision();
         that.update();
         that.draw();

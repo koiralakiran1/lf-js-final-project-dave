@@ -1,11 +1,12 @@
 import {topScoreCanvasContext} from '../helpers/canvasInitialization.js';
-import {bottomCanvasContext} from '../helpers/canvasInitialization.js';
 import {spriteConfigs} from '../configs/spriteConfigs.js';
 import {formatNumberLength} from '../helpers/utils.js';
+import {bottomCanvasContext} from '../helpers/canvasInitialization.js';
 
-export default function ScoreBoard() {
+export default function DisplayBoard() {
     const LETTER_SPACING = 3;
-    this.displayScoreBoard = function(score, level, numberOfLivesLeft) {
+
+    this.displayTopScoreBoard = function(score, level, numberOfLivesLeft) {
         var formattedScore = formatNumberLength(score, 5);
         var firstDigit = formattedScore[0];
         var secondDigit = formattedScore[1];
@@ -18,6 +19,7 @@ export default function ScoreBoard() {
         var secondDigitOfLevel = formattedLevel[1];
 
         topScoreCanvasContext.clearRect(0,0,640,64);
+
         //SCORE: 0000
         topScoreCanvasContext.drawImage(
             spriteConfigs[84].imageSource,
@@ -284,5 +286,20 @@ export default function ScoreBoard() {
                 32, 32
             );
         }
+    };
+
+    this.updateBottomCanvas = function() {
+        bottomCanvasContext.clearRect(0,0,640,64);
+        //draw GO THRU THE DOOR IMAGE
+        bottomCanvasContext.drawImage(
+            spriteConfigs[84].imageSource,
+            spriteConfigs[84].spritePosX(),
+            spriteConfigs[84].spritePosY(),
+            spriteConfigs[84].singleWidth,
+            spriteConfigs[84].singleHeight,
+            0,
+            16,
+            16,32
+        );
     };
 }
