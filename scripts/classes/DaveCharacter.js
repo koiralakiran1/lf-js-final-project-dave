@@ -2,7 +2,7 @@ import {spriteConfigs} from '../configs/spriteConfigs.js';
 import SpriteRenderer from './SpriteRenderer.js';
 import {convertPositionToIndex} from '../helpers/utils.js';
 import {removeValueFromArray} from '../helpers/utils.js';
-import {newGame} from '../script.js';
+import {newGame} from './StartScreen.js';
 import * as constants from '../helpers/constants.js';
 
 export default function DaveCharacter(currentMap, currentMapObjArray) {

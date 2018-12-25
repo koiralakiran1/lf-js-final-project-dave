@@ -1,10 +1,10 @@
 import './helpers/canvasInitialization.js';
 import './configs/spriteConfigs.js';
-import Game from './classes/Game.js';
+import StartScreen from './classes/StartScreen.js';
 
-var newGame;
+var newStartScreen;
 window.onload = function() {
-    newGame = new Game();
-    newGame.initGame();
+    newStartScreen = new StartScreen();
+    newStartScreen.initStartScreen();
 };
-export {newGame};
+export {newStartScreen};

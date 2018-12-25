@@ -16,19 +16,19 @@ canvasContext.canvas.height = constants.CANVAS_FULL_HEIGHT;
 canvas.style.margin = 'auto';
 canvas.style.display = 'block';
 
-topScoreCanvasContext.canvas.height = 64;
+topScoreCanvasContext.canvas.height = 96;
 topScoreCanvasContext.canvas.width = constants.CANVAS_FULL_WIDTH;
 topScoreCanvas.style.display = 'block';
 topScoreCanvas.style.margin = 'auto';
 
-bottomCanvasContext.canvas.height = 64;
+bottomCanvasContext.canvas.height = 96;
 bottomCanvasContext.canvas.width = constants.CANVAS_FULL_WIDTH;
 bottomCanvas.style.display = 'block';
 bottomCanvas.style.margin = 'auto';
 
 
 gameDiv.style.width = canvasContext.canvas.width + 64 + 'px';
-gameDiv.style.height = canvasContext.canvas.height + 128 + 'px';
+gameDiv.style.height = canvasContext.canvas.height + 96 + 96 + 'px';
 gameDiv.style.backgroundColor = 'black';
 gameDiv.style.margin = 'auto';
 

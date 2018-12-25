@@ -1,10 +1,11 @@
 import {topScoreCanvasContext} from '../helpers/canvasInitialization.js';
-import {spriteConfigs, gttdConfigs} from '../configs/spriteConfigs.js';
+import {spriteConfigs, gttdConfigs, ddImageConfigs} from '../configs/spriteConfigs.js';
 import {formatNumberLength} from '../helpers/utils.js';
 import {bottomCanvasContext} from '../helpers/canvasInitialization.js';
 
 export default function DisplayBoard() {
     const LETTER_SPACING = 3;
+    var i = 0;
 
     this.displayTopScoreBoard = function(score, level, numberOfLivesLeft) {
         var formattedScore = formatNumberLength(score, 5);
@@ -18,7 +19,7 @@ export default function DisplayBoard() {
         var firstDigitOfLevel = formattedLevel[0];
         var secondDigitOfLevel = formattedLevel[1];
 
-        topScoreCanvasContext.clearRect(0,0,640,64);
+        topScoreCanvasContext.clearRect(0,0,640,96);
 
         //SCORE: 0000
         topScoreCanvasContext.drawImage(
@@ -28,7 +29,7 @@ export default function DisplayBoard() {
             spriteConfigs[84].singleWidth,
             spriteConfigs[84].singleHeight,
             0,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -38,7 +39,7 @@ export default function DisplayBoard() {
             spriteConfigs[72].singleWidth,
             spriteConfigs[72].singleHeight,
             16 + LETTER_SPACING,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -48,7 +49,7 @@ export default function DisplayBoard() {
             spriteConfigs[81].singleWidth,
             spriteConfigs[81].singleHeight,
             16*2 + LETTER_SPACING*2,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -58,7 +59,7 @@ export default function DisplayBoard() {
             spriteConfigs[83].singleWidth,
             spriteConfigs[83].singleHeight,
             16*3 + LETTER_SPACING*3,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -68,7 +69,7 @@ export default function DisplayBoard() {
             spriteConfigs[74].singleWidth,
             spriteConfigs[74].singleHeight,
             16*4 + LETTER_SPACING*4,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -78,7 +79,7 @@ export default function DisplayBoard() {
             spriteConfigs[88].singleWidth,
             spriteConfigs[88].singleHeight,
             16*5 + LETTER_SPACING*5,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -88,7 +89,7 @@ export default function DisplayBoard() {
             spriteConfigs[90+parseInt(firstDigit)].singleWidth,
             spriteConfigs[90+parseInt(firstDigit)].singleHeight,
             16*6 + LETTER_SPACING*6,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -98,7 +99,7 @@ export default function DisplayBoard() {
             spriteConfigs[90+parseInt(secondDigit)].singleWidth,
             spriteConfigs[90+parseInt(secondDigit)].singleHeight,
             16*7 + LETTER_SPACING*7,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -108,7 +109,7 @@ export default function DisplayBoard() {
             spriteConfigs[90+parseInt(thirdDigit)].singleWidth,
             spriteConfigs[90+parseInt(thirdDigit)].singleHeight,
             16*8 + LETTER_SPACING*8,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -118,7 +119,7 @@ export default function DisplayBoard() {
             spriteConfigs[90+parseInt(fourthDigit)].singleWidth,
             spriteConfigs[90+parseInt(fourthDigit)].singleHeight,
             16*9 + LETTER_SPACING*9,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -128,7 +129,7 @@ export default function DisplayBoard() {
             spriteConfigs[90+parseInt(fifthDigit)].singleWidth,
             spriteConfigs[90+parseInt(fifthDigit)].singleHeight,
             16*10 + LETTER_SPACING*10,
-            16,
+            32,
             16,32
         );
         //LEVEL: 01
@@ -139,7 +140,7 @@ export default function DisplayBoard() {
             spriteConfigs[79].singleWidth,
             spriteConfigs[79].singleHeight,
             16*12 + LETTER_SPACING*12,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -149,7 +150,7 @@ export default function DisplayBoard() {
             spriteConfigs[74].singleWidth,
             spriteConfigs[74].singleHeight,
             16*13 + LETTER_SPACING*13,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -159,7 +160,7 @@ export default function DisplayBoard() {
             spriteConfigs[87].singleWidth,
             spriteConfigs[87].singleHeight,
             16*14 + LETTER_SPACING*14,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -169,7 +170,7 @@ export default function DisplayBoard() {
             spriteConfigs[74].singleWidth,
             spriteConfigs[74].singleHeight,
             16*15 + LETTER_SPACING*15,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -179,7 +180,7 @@ export default function DisplayBoard() {
             spriteConfigs[79].singleWidth,
             spriteConfigs[79].singleHeight,
             16*16 + LETTER_SPACING*16,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -189,7 +190,7 @@ export default function DisplayBoard() {
             spriteConfigs[88].singleWidth,
             spriteConfigs[88].singleHeight,
             16*17 + LETTER_SPACING*17,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -199,7 +200,7 @@ export default function DisplayBoard() {
             spriteConfigs[90+parseInt(firstDigitOfLevel)].singleWidth,
             spriteConfigs[90+parseInt(firstDigitOfLevel)].singleHeight,
             16*18 + LETTER_SPACING*18,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -209,7 +210,7 @@ export default function DisplayBoard() {
             spriteConfigs[90+parseInt(secondDigitOfLevel)].singleWidth,
             spriteConfigs[90+parseInt(secondDigitOfLevel)].singleHeight,
             16*19 + LETTER_SPACING*19,
-            16,
+            32,
             16,32
         );
 
@@ -221,7 +222,7 @@ export default function DisplayBoard() {
             spriteConfigs[73].singleWidth,
             spriteConfigs[73].singleHeight,
             16*21 + LETTER_SPACING*21,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -231,7 +232,7 @@ export default function DisplayBoard() {
             spriteConfigs[71].singleWidth,
             spriteConfigs[71].singleHeight,
             16*22 + LETTER_SPACING*22,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -241,7 +242,7 @@ export default function DisplayBoard() {
             spriteConfigs[87].singleWidth,
             spriteConfigs[87].singleHeight,
             16*23 + LETTER_SPACING*23,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -251,7 +252,7 @@ export default function DisplayBoard() {
             spriteConfigs[74].singleWidth,
             spriteConfigs[74].singleHeight,
             16*24 + LETTER_SPACING*24,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -261,7 +262,7 @@ export default function DisplayBoard() {
             spriteConfigs[84].singleWidth,
             spriteConfigs[84].singleHeight,
             16*25 + LETTER_SPACING*25,
-            16,
+            32,
             16,32
         );
         topScoreCanvasContext.drawImage(
@@ -271,7 +272,7 @@ export default function DisplayBoard() {
             spriteConfigs[88].singleWidth,
             spriteConfigs[88].singleHeight,
             16*26 + LETTER_SPACING*26,
-            16,
+            32,
             16,32
         );
         for(var i = 0; i < numberOfLivesLeft; i++) {
@@ -282,19 +283,29 @@ export default function DisplayBoard() {
                 spriteConfigs[31].singleWidth,
                 spriteConfigs[31].singleHeight,
                 16 * 27 + 32 * i + LETTER_SPACING * (27+i+1),
-                16,
+                32,
                 32, 32
             );
         }
     };
 
     this.updateBottomCanvas = function() {
-        bottomCanvasContext.clearRect(0,0,640,64);
+        bottomCanvasContext.clearRect(0,0,640,96);
         //draw GO THRU THE DOOR IMAGE
         bottomCanvasContext.drawImage(
             gttdConfigs.imageSource,
             gttdConfigs.spritePosX(), gttdConfigs.spritePosY(),
             gttdConfigs.singleWidth, gttdConfigs.singleHeight,
             148, 16, gttdConfigs.singleWidth, gttdConfigs.singleHeight);
+        // i++;
+        // bottomCanvasContext.drawImage(
+        //     ddImageConfigs[i].imageSource,
+        //     ddImageConfigs[i].spritePosX(), ddImageConfigs[i].spritePosY(),
+        //     ddImageConfigs[i].singleWidth, ddImageConfigs[i].singleHeight,
+        //     0,0,ddImageConfigs[i].singleWidth, ddImageConfigs[i].singleHeight
+        //     );
+        // if(i>=3) {
+        //     i = 0;
+        // }
     };
 }

@@ -1,5 +1,7 @@
+
 export var spriteConfigs = {};
 export var gttdConfigs = {};
+export var ddImageConfigs = {};
 
 var spriteImage = new Image();
 var ddImage1 = new Image();
@@ -1009,5 +1011,108 @@ goThruTheDoorImage.onload = function() {
             },
     };
 };
+ddImage1.onload = function() {
+    console.log('dd1 loaded');
+    ddImageConfigs[0] = {
+        isAnimation: true,
+        imageSource: ddImage1,
+        indexX: 0,
+        indexY: 0,
+        maxIndexX: 0,
+        singleWidth: 419,
+        singleHeight: 169,
+        spritePosX: function() {
+            return this.indexX * this.singleWidth;
+        },
+        spritePosY: function() {
+            return this.indexY * this.singleHeight;
+        },
+    };
+};
+ddImage2.onload = function() {
+    console.log('dd2 loaded');
+    ddImageConfigs[1] = {
+        isAnimation: true,
+        imageSource: ddImage2,
+        indexX: 0,
+        indexY: 0,
+        maxIndexX: 0,
+        singleWidth: 419,
+        singleHeight: 173,
+        spritePosX: function() {
+            return this.indexX * this.singleWidth;
+        },
+        spritePosY: function() {
+            return this.indexY * this.singleHeight;
+        },
+    };
+};
+ddImage3.onload = function() {
+    console.log('dd3 loaded');
+    ddImageConfigs[2] = {
+        isAnimation: true,
+        imageSource: ddImage3,
+        indexX: 0,
+        indexY: 0,
+        maxIndexX: 0,
+        singleWidth: 427,
+        singleHeight: 165,
+        spritePosX: function() {
+            return this.indexX * this.singleWidth;
+        },
+        spritePosY: function() {
+            return this.indexY * this.singleHeight;
+        },
+    };
+};
+ddImage4.onload = function() {
+    console.log('dd4 loaded');
+    ddImageConfigs[3] = {
+        isAnimation: true,
+        imageSource: ddImage4,
+        indexX: 0,
+        indexY: 0,
+        maxIndexX: 0,
+        singleWidth: 427,
+        singleHeight: 169,
+        spritePosX: function() {
+            return this.indexX * this.singleWidth;
+        },
+        spritePosY: function() {
+            return this.indexY * this.singleHeight;
+        },
+    };
+    ddImageConfigs.frameIndex = 0;
+    ddImageConfigs.tickCount = 0;
+    ddImageConfigs.ticksPerFrame = 10;
+    ddImageConfigs.animate = function() {
+        this.tickCount++;
+        if(this.tickCount >= this.ticksPerFrame) {
+            this.tickCount = 0;
+            this.frameIndex++;
+            if(this.frameIndex > 3) {
+                this.frameIndex = 0;
+            }
+        }
+    };
+    ddImageConfigs.render = function(canvasContext, drawPosX, drawPosY, drawWidth, drawHeight) {
+        canvasContext.drawImage(
+            this[this.frameIndex].imageSource,
+            this[this.frameIndex].spritePosX(),
+            this[this.frameIndex].spritePosY(),
+            this[this.frameIndex].singleWidth,
+            this[this.frameIndex].singleHeight,
+            drawPosX,
+            drawPosY,
+            drawWidth,
+            drawHeight
+        );
+    };
+};
+
 spriteImage.src = './assets/imageAssets/highres/pngs/all_in_one_transp.png';
 goThruTheDoorImage.src = './assets/imageAssets/highres/pngs/gttd.png';
+ddImage4.src = './assets/imageAssets/highres/pngs/dd4.png';
+ddImage1.src = './assets/imageAssets/highres/pngs/dd1.png';
+ddImage2.src = './assets/imageAssets/highres/pngs/dd2.png';
+ddImage3.src = './assets/imageAssets/highres/pngs/dd3.png';
