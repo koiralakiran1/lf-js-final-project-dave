@@ -1,4 +1,4 @@
-* {
-  padding: 0px;
-  margin: 0px;
+@font-face {
+    font-family: CustomFont;
+    src: url('../assets/fontAssets/customFont.ttf');
 }

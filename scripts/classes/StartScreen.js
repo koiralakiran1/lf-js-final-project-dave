@@ -1,4 +1,4 @@
-import { canvasContext, topScoreCanvasContext } from "../helpers/canvasInitialization.js";
+import { canvasContext, topScoreCanvasContext, bottomCanvasContext } from "../helpers/canvasInitialization.js";
 import Game from "./Game.js";
 import {spriteConfigs, ddImageConfigs} from '../configs/spriteConfigs.js';
 import SpriteRenderer from './SpriteRenderer.js';
@@ -7,6 +7,7 @@ var newGame;
 export default function StartScreen() {
     var that = this;
     this.startMapObjArray = [];
+    this.blinkerCount = 0;
     this.startScreenMap = [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -73,7 +74,8 @@ export default function StartScreen() {
         that.startMapObjArray.forEach(function(element) {
             element.render();
         });
-        that.drawDangerousDaveImage();
+        ddImageConfigs.render(topScoreCanvasContext,160, 0, 320, 96);
+        that.writeToCanvas();
     };
     this.updateStartScreen = function() {
         that.startMapObjArray.forEach(function(element) {
@@ -81,6 +83,7 @@ export default function StartScreen() {
                 element.update();
             }
         });
+        ddImageConfigs.animate();
     };
     this.startScreenLoop = function() {
         canvasContext.clearRect(0,0,640,320);
@@ -98,10 +101,27 @@ export default function StartScreen() {
             newGame.initGame();
         }
     };
-    that.drawDangerousDaveImage = function() {
-        // console.log('dang');
-        ddImageConfigs.animate();
-        ddImageConfigs.render(topScoreCanvasContext,160, 0, 320, 96);
+    that.writeToCanvas = function() {
+        canvasContext.font = '16px CustomFont';
+        canvasContext.textAlign = "center";
+        canvasContext.fillStyle = "#ffffff";
+        canvasContext.fillText("BY JOHN ROMERO", 320, 50);
+        canvasContext.fillText("(C) 1990 SOFTDISK, INC.", 320, 90);
+
+        if(that.blinkerCount <= 50) {
+            bottomCanvasContext.font = '16px CustomFont';
+            bottomCanvasContext.textAlign = "center";
+            bottomCanvasContext.fillStyle = "#ffffff";
+            bottomCanvasContext.fillText("Press Space Key To Continue", 320, 30);
+        } else {
+            bottomCanvasContext.clearRect(0,0, 640, 46);
+            if(that.blinkerCount >= 75) {
+                that.blinkerCount = 0;
+            }
+        }
+        that.blinkerCount++;
+        bottomCanvasContext.font = '10px CustomFont';
+        bottomCanvasContext.fillText("Use Arrow Keys To Move the Character", 320, 50);
     };
 }
 export {newGame};

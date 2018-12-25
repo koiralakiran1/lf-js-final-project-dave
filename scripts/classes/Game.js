@@ -2,7 +2,7 @@ import Map from './Map.js';
 import {spriteConfigs} from '../configs/spriteConfigs.js';
 import SpriteRenderer from './SpriteRenderer.js';
 import DaveCharacter from './DaveCharacter.js';
-import {canvasContext} from '../helpers/canvasInitialization.js';
+import {canvasContext, bottomCanvasContext} from '../helpers/canvasInitialization.js';
 import DisplayBoard from './DisplayBoard.js';
 
 export default function Game() {
@@ -101,6 +101,7 @@ export default function Game() {
         canvasContext.clearRect(0, 0, 640, 320);
         window.animator = window.requestAnimationFrame(that.mainGameLoop);
         that.displayBoard.displayTopScoreBoard(that.score, that.currentLevel, that.numberOfLivesLeft);
+        bottomCanvasContext.clearRect(0,0, 640, 96);
         if(that.consumed.lampKey) {
             that.displayBoard.updateBottomCanvas();
         }
