@@ -17,23 +17,25 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
     this.offsetYInc = 0;
     this.rightKeyPressedLast = undefined;
 
-    this.initDaveCharacter = function() {
-        that.tunnelIndex = that.currentMap.findIndex(function(element) {
-            return element == 6 || element == 7;
-        });
-        that.daveDrawObject = Object.assign({}, that.currentMapObjArray[that.tunnelIndex]);
-        that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[constants.MAIN_CHARACTER_STILL]);
-        if(that.currentMap[that.tunnelIndex] == 6) {
-            that.daveDrawObject.xInc++;
-        } else if(that.currentMap[that.tunnelIndex] == 7) {
-            that.daveDrawObject.yInc++;
-        }
-        that.daveDrawObject.spriteNumber = constants.MAIN_CHARACTER_STILL;
-        that.daveDrawObject.ticksPerFrame = 5;
-        // that.daveDrawObject.offsetY = -192;
-        // that.daveDrawObject.offsetX = +32;
+    this.initDaveCharacter = function(initialPosX, initialPosY) {
+        if(!initialPosX || !initialPosY) {
+            that.tunnelIndex = that.currentMap.findIndex(function(element) {
+                return element == 6 || element == 7;
+            });
+            that.daveDrawObject = Object.assign({}, that.currentMapObjArray[that.tunnelIndex]);
+            that.daveDrawObject = Object.assign(that.daveDrawObject, spriteConfigs[constants.MAIN_CHARACTER_STILL]);
+            if(that.currentMap[that.tunnelIndex] == 6) {
+                that.daveDrawObject.xInc++;
+            } else if(that.currentMap[that.tunnelIndex] == 7) {
+                that.daveDrawObject.yInc++;
+            }
+            that.daveDrawObject.spriteNumber = constants.MAIN_CHARACTER_STILL;
+            that.daveDrawObject.ticksPerFrame = 5;
+            // that.daveDrawObject.offsetY = -192;
+            // that.daveDrawObject.offsetX = +32;
 
-        that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+            that.daveDrawObject = new SpriteRenderer(that.daveDrawObject);
+        }
     };
 
     this.drawDaveCharacter = function() {
@@ -255,12 +257,12 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             }
             case 32: { //Door Collision
                 if(newGame.consumed.lampKey) {
-                    window.cancelAnimationFrame(window.animator);
                     bottomCanvasContext.clearRect(0,0,640,96);
                     canvasContext.clearRect(0,0,640,320);
                     window.removeEventListener("keydown", that.keyDownEventListener, false);
                     window.removeEventListener("keyup", that.keyUpEventListener, false);
                     newGame.levelUpScreen.initLevelUpScreen();
+                    window.cancelAnimationFrame(window.animator);
                 }
                 return true;
             }

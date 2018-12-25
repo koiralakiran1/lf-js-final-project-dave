@@ -67,6 +67,9 @@ export default function StartScreen() {
     };
     this.initStartScreen = function() {
         this.createStartMapObjArray(that.startScreenMap);
+        canvasContext.clearRect(0,0, 640, 320);
+        topScoreCanvasContext.clearRect(0,0, 640, 96);
+        bottomCanvasContext.clearRect(0,0,640, 96);
         window.addEventListener('keypress', that.spaceKeyPressedEventListener, false);
         this.startScreenLoop();
     };

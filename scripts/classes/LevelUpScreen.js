@@ -1,12 +1,15 @@
 import { spriteConfigs } from "../configs/spriteConfigs.js";
 import SpriteRenderer from "./SpriteRenderer.js";
 import { canvasContext } from "../helpers/canvasInitialization.js";
+import DaveCharacter from "./DaveCharacter.js";
+import StartScreen from "./StartScreen.js";
 
 
 
 export default function LevelUpScreen() {
     var that = this;
     this.levelUpScreenMapObjArray = [];
+    this.daveAnimateObject = {};
     this.levelUpScreenMap = [
          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -66,7 +69,36 @@ export default function LevelUpScreen() {
 
     this.initLevelUpScreen = function() {
         that.createLevelUpMapObjArray(that.levelUpScreenMap);
+        that.initLevelUpDave();
         that.levelUpScreenLoop();
+    };
+    this.initLevelUpDave = function() {
+        that.daveAnimateObject = spriteConfigs[42];
+        that.daveAnimateObject.xInc = 1;
+        that.daveAnimateObject.yInc = 5;
+        that.daveAnimateObject.drawWidth = 32;
+        that.daveAnimateObject.drawHeight = 32;
+        that.daveAnimateObject.offsetX = 0;
+        that.daveAnimateObject.offsetY = 0;
+        that.daveAnimateObject.frameIndex = 0;
+        that.daveAnimateObject.tickCount = 0;
+        that.daveAnimateObject.ticksPerFrame = 10;
+        that.daveAnimateObject.numberOfFrames = function() {
+            return this.maxIndexX - this.indexX + 1;
+        };
+        that.daveAnimateObject.initialDrawPosX = function() {
+            return this.drawWidth * this.xInc;
+        };
+        that.daveAnimateObject.initialDrawPosY = function() {
+            return this.drawHeight * this.yInc;
+        }
+        that.daveAnimateObject.drawPosX = function () {
+            return this.drawWidth * this.xInc + this.offsetX;
+        };
+        that.daveAnimateObject.drawPosY = function () {
+            return this.drawHeight * this.yInc + this.offsetY;
+        };
+        that.daveAnimateObject = new SpriteRenderer(that.daveAnimateObject);
     };
 
     this.drawLevelUpScreen = function() {
@@ -74,6 +106,7 @@ export default function LevelUpScreen() {
             element.render();
         });
         that.writeToCanvas();
+        that.daveAnimateObject.render();
     };
     this.updateLevelUpScreen = function() {
         // that.levelUpScreenMapObjArray.forEach(function(element) {
@@ -81,18 +114,29 @@ export default function LevelUpScreen() {
         //         element.update();
         //     }
         // });
-        //update dave walk
+        that.updateLevelUpDave();
     };
     this.levelUpScreenLoop = function() {
         canvasContext.clearRect(0,0,640,320);
         window.levelUpScreenAnimator = window.requestAnimationFrame(that.levelUpScreenLoop);
-        that.updateLevelUpScreen();
         that.drawLevelUpScreen();
+        that.updateLevelUpScreen();
     };
     this.writeToCanvas = function() {
         canvasContext.font = '14px CustomFont';
         canvasContext.textAlign = "center";
         canvasContext.fillStyle = "#ffffff";
         canvasContext.fillText("CONGRATULATIONS. LEVEL UP.", 320, 120);
+    };
+    this.updateLevelUpDave = function() {
+        if(that.daveAnimateObject.drawPosX() >= 640-32) {
+            window.cancelAnimationFrame(window.startScreenAnimator);
+            window.cancelAnimationFrame(window.levelUpScreenAnimator);
+            window.cancelAnimationFrame(window.animator);
+            that.startScreen = new StartScreen();
+            that.startScreen.initStartScreen();
+        }
+        that.daveAnimateObject.offsetX += 2;
+        that.daveAnimateObject.update();
     };
 }
