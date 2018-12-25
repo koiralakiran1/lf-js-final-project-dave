@@ -133,10 +133,10 @@ export default function LevelUpScreen() {
             window.cancelAnimationFrame(window.startScreenAnimator);
             window.cancelAnimationFrame(window.levelUpScreenAnimator);
             window.cancelAnimationFrame(window.animator);
-            that.startScreen = new StartScreen();
-            that.startScreen.initStartScreen();
+            window.location.reload(false);
+        } else {
+            that.daveAnimateObject.offsetX += 2;
+            that.daveAnimateObject.update();
         }
-        that.daveAnimateObject.offsetX += 2;
-        that.daveAnimateObject.update();
     };
 }
