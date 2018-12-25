@@ -13,7 +13,7 @@ var goThruTheDoorImage = new Image();
 
 spriteImage.onload = function() {
     console.log('Image loaded');
-    spriteConfigs = { 
+    spriteConfigs = {
         0: {// BLACK_BACKGROUND
             isAnimation: false,
             imageSource: spriteImage,
@@ -886,7 +886,7 @@ spriteImage.onload = function() {
                 return ((this.indexY-1) * 64 + 48);
             },
         },
-        93: {// digit2
+        93: {// digit3
             isAnimation: false,
             imageSource: spriteImage,
             indexX: 3,
@@ -901,7 +901,7 @@ spriteImage.onload = function() {
                 return ((this.indexY-1) * 64 + 48);
             },
         },
-        94: {// digit2
+        94: {// digit4
             isAnimation: false,
             imageSource: spriteImage,
             indexX: 4,
@@ -916,7 +916,7 @@ spriteImage.onload = function() {
                 return ((this.indexY-1) * 64 + 48);
             },
         },
-        95: {// digit2
+        95: {// digit5
             isAnimation: false,
             imageSource: spriteImage,
             indexX: 5,
@@ -931,7 +931,7 @@ spriteImage.onload = function() {
                 return ((this.indexY-1) * 64 + 48);
             },
         },
-        96: {// digit2
+        96: {// digit6
             isAnimation: false,
             imageSource: spriteImage,
             indexX: 6,
@@ -946,7 +946,7 @@ spriteImage.onload = function() {
                 return ((this.indexY-1) * 64 + 48);
             },
         },
-        97: {// digit2
+        97: {// digit7
             isAnimation: false,
             imageSource: spriteImage,
             indexX: 7,
@@ -961,7 +961,7 @@ spriteImage.onload = function() {
                 return ((this.indexY-1) * 64 + 48);
             },
         },
-        98: {// digit2
+        98: {// digit8
             isAnimation: false,
             imageSource: spriteImage,
             indexX: 8,
@@ -976,7 +976,7 @@ spriteImage.onload = function() {
                 return ((this.indexY-1) * 64 + 48);
             },
         },
-        99: {// digit2
+        99: {// digit9
             isAnimation: false,
             imageSource: spriteImage,
             indexX: 9,

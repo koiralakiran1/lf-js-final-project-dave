@@ -1,8 +1,7 @@
 import { spriteConfigs } from "../configs/spriteConfigs.js";
 import SpriteRenderer from "./SpriteRenderer.js";
 import { canvasContext } from "../helpers/canvasInitialization.js";
-import DaveCharacter from "./DaveCharacter.js";
-import StartScreen from "./StartScreen.js";
+import * as constants from "../helpers/constants.js";
 
 
 
@@ -28,13 +27,13 @@ export default function LevelUpScreen() {
             var currentSpriteConfig = Object.assign({}, spriteConfigs[mapArray[i]]);
 
             //add canvas draw parameter
-            currentSpriteConfig.drawWidth = 32;
-            currentSpriteConfig.drawHeight = 32;
+            currentSpriteConfig.drawWidth = constants.CANVAS_DRAW_WIDTH;
+            currentSpriteConfig.drawHeight = constants.CANVAS_DRAW_HEIGHT;
             currentSpriteConfig.xInc = x;
             currentSpriteConfig.yInc = y;
             currentSpriteConfig.spriteNumber = mapArray[i];
-            currentSpriteConfig.offsetX = 0;
-            currentSpriteConfig.offsetY = 0;
+            currentSpriteConfig.offsetX = constants.INITIAL_OFFSETX;
+            currentSpriteConfig.offsetY = constants.INITIAL_OFFSETY;
 
             currentSpriteConfig.initialDrawPosX = function() {
                 return this.drawWidth * this.xInc;
