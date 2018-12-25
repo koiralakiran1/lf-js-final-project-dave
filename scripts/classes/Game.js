@@ -4,6 +4,7 @@ import SpriteRenderer from './SpriteRenderer.js';
 import DaveCharacter from './DaveCharacter.js';
 import {canvasContext, bottomCanvasContext} from '../helpers/canvasInitialization.js';
 import DisplayBoard from './DisplayBoard.js';
+import LevelUpScreen from './LevelUpScreen.js';
 
 export default function Game() {
     var that = this;
@@ -12,6 +13,7 @@ export default function Game() {
     this.currentMapObjArray = [];
     this.daveCharacter = new DaveCharacter(that.currentMap, that.currentMapObjArray);
     this.displayBoard = new DisplayBoard();
+    this.levelUpScreen = new LevelUpScreen();
     this.score = 0;
     this.numberOfLivesLeft = 3;
     this.currentLevel = 1;
@@ -105,9 +107,9 @@ export default function Game() {
         if(that.consumed.lampKey) {
             that.displayBoard.updateBottomCanvas();
         }
+        that.draw();
         that.detectCollision();
         that.update();
-        that.draw();
     };
     this.update = function() {
         that.map.updateMap(that.currentMapObjArray);

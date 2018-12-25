@@ -4,6 +4,7 @@ import {convertPositionToIndex} from '../helpers/utils.js';
 import {removeValueFromArray} from '../helpers/utils.js';
 import {newGame} from './StartScreen.js';
 import * as constants from '../helpers/constants.js';
+import { canvasContext, bottomCanvasContext } from '../helpers/canvasInitialization.js';
 
 export default function DaveCharacter(currentMap, currentMapObjArray) {
     var that = this;
@@ -254,7 +255,12 @@ export default function DaveCharacter(currentMap, currentMapObjArray) {
             }
             case 32: { //Door Collision
                 if(newGame.consumed.lampKey) {
-                    //console.log('go through the door');
+                    window.cancelAnimationFrame(window.animator);
+                    bottomCanvasContext.clearRect(0,0,640,96);
+                    canvasContext.clearRect(0,0,640,320);
+                    window.removeEventListener("keydown", that.keyDownEventListener, false);
+                    window.removeEventListener("keyup", that.keyUpEventListener, false);
+                    newGame.levelUpScreen.initLevelUpScreen();
                 }
                 return true;
             }
