@@ -13,7 +13,7 @@ var goThruTheDoorImage = new Image();
 
 spriteImage.onload = function() {
     console.log('Image loaded');
-    spriteConfigs = {
+    spriteConfigs = { 
         0: {// BLACK_BACKGROUND
             isAnimation: false,
             imageSource: spriteImage,

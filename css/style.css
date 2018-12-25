@@ -1,3 +1,6 @@
+body {
+    background: black;
+}
 @font-face {
     font-family: CustomFont;
     src: url('../assets/fontAssets/customFont.ttf');
